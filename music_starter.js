@@ -6,6 +6,18 @@ let x = 320
 let y = 240
 let maskRadius = 220; 
 
+//traveling
+let xMove = 600 //start location
+//let xSpeed =10
+let minSpeed = 10;
+let maxSpeed = 35;
+let travelingY = 300
+
+let scale= 100
+let glow = 100
+
+let travelingActive = false;
+
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textFont('Verdana'); // please use CSS safe fonts
@@ -13,11 +25,34 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textSize(24);
   background(0)
 
-   if(firstRun){
-    myImage = loadImage('diskteaxture.png')
-    firstRun = false;
-   }
+if(firstRun){
+  myImage = loadImage('diskteaxture.png')
+  firstRun = false;
+  }
 
+diskSetUp()
+
+
+pulsingCircle()
+
+if (words === "affairs") {
+    travelingActive = true;  // start animation
+  }
+
+  if (words === "current") {
+    travelingActive = false; // stop animation
+  }
+
+  // Only draw the ball if active
+  if (travelingActive) {
+    travellingBall(); 
+  }
+
+grainOverlay()
+diskOverlay()
+
+
+function diskSetUp(){
  //disk mask
 drawingContext.save();
 drawingContext.beginPath();
@@ -26,9 +61,10 @@ drawingContext.clip();
 
 //disk colour 
 fill(20)
-circle (x,y,440) 
+circle (x,y,440)
+} 
 
-
+function pulsingCircle(){
 //pulsing circle using vocal
 let shapeRatio1 = vocal / 100; //scaling vocal values to be between 0 - 1
 let redShape1 = lerp(255, 0, shapeRatio1);   // orange to blue
@@ -42,6 +78,51 @@ for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
   noStroke();
   ellipse(150, 100, sizeShape1, sizeShape1);
   }
+}
+
+function travellingBall(){
+//travelling ball
+let xSpeed = map(vocal, 0, 100, minSpeed, maxSpeed);
+xMove = xMove-xSpeed
+if (xMove<-300){
+  xMove=400
+  xSpeed = xSpeed+3
+}
+noStroke()
+fill(0,200,255,glow)
+ellipse(xMove-5,travelingY,scale,scale)
+fill(0,200,255,glow)
+ellipse(xMove+5,travelingY,scale,scale)
+fill(0,200,255,glow-10)
+ellipse(xMove+10,travelingY,scale,scale)
+
+for (let i =0; i<200; i++){
+let shiftX = i*2
+let glowX = glow-i
+let scaleW = 100-i/1.5
+fill(0,200,255,glowX/5)
+ellipse(xMove+shiftX,travelingY,scaleW,scaleW)
+}}
+
+function grainOverlay(){
+//grain overlay
+let grainAmount = map(vocal, 0, 100, 1000, 10000); // scale bass to quantity of cirlce drawn for grain effect.
+fill(255, 255, 255, 15); // semi-transparent white
+noStroke();
+
+for (let i = 0; i < grainAmount; i++) {
+  ellipse(random(width), random(height), 1.5, 1.5);
+  }}
+
+function diskOverlay(){
+
+//disk teaxture
+image(myImage,0,0);// 5,2.5
+
+//disk interior circle
+fill(0)
+circle (x,y,30) 
+}}
 
 /*
 //pulsing oval using drum
@@ -57,9 +138,7 @@ for (let sizeShape2 = drumScale; sizeShape2 > 0; sizeShape2 -= 5) {
   line(320,240, sizeShape2, sizeShape2/20);
   }
 */
-
-
-//test graidents
+/*//test graidents
  let cx = 300;   // X-coordinate of the fan's center
   let cy = 460;   // Y-coordinate of the fan's center
   let radius = 80; // Length of each line from the center
@@ -96,21 +175,4 @@ for (let sizeShape2 = drumScale; sizeShape2 > 0; sizeShape2 -= 5) {
     // Draw the line from the center to the calculated end point
     line(cx, cy, x2, y2);
   }
-
-  
-//grain overlay
-let grainAmount = map(vocal, 0, 100, 1000, 10000); // scale bass to quantity of cirlce drawn for grain effect.
-fill(255, 255, 255, 15); // semi-transparent white
-noStroke();
-
-for (let i = 0; i < grainAmount; i++) {
-  ellipse(random(width), random(height), 1.5, 1.5);
-  }
-
-//disk teaxture
-image(myImage,0,0);// 5,2.5
-
-//disk interior circle
-fill(0)
-circle (x,y,30) 
-  }
+*/
