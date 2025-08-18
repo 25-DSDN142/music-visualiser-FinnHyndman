@@ -1,4 +1,6 @@
+let firstRun = true;
 
+let myImage; 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -6,6 +8,14 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rectMode(CENTER)
   textSize(24);
   background(0)
+
+   if(firstRun){
+
+    myImage = loadImage('diskteaxture.png')
+
+    firstRun = false;
+
+  }
 
 // canvas centre
 let x = 320
@@ -49,7 +59,4 @@ circle (x,y,140)
 
 fill(0)
 circle (x,y,40) 
-
-
- 
   }}
