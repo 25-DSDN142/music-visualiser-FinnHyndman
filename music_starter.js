@@ -57,8 +57,6 @@ for (let sizeShape2 = drumScale; sizeShape2 > 0; sizeShape2 -= 5) {
   ellipse(400, 400, sizeShape2, sizeShape2/1.3);
   ellipse(450, 380, sizeShape2, sizeShape2/1.3);
   ellipse(330, 380, sizeShape2, sizeShape2/1.3);
-
-
   }
 
 //grain overlay
