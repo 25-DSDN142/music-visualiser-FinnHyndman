@@ -2,26 +2,23 @@ let firstRun = true;
 
 let myImage; 
 
-// vocal, drum, bass, and other are volumes ranging from 0 to 100
-function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  textFont('Verdana'); // please use CSS safe fonts
-  rectMode(CENTER)
-  textSize(24);
-  background(0)
-
-   if(firstRun){
-
-    myImage = loadImage('diskteaxture.png')
-
-    firstRun = false;
-
-  }
-
 // canvas centre
 let x = 320
 let y = 240
 let maskRadius = 220; 
 
+
+// vocal, drum, bass, and other are volumes ranging from 0 to 100
+function draw_one_frame(words, vocal, drum, bass, other, counter) {
+
+  
+  textFont('Verdana'); // please use CSS safe fonts
+  rectMode(CENTER)
+  textSize(24);
+  background(0)
+
+
+  //clipping mask
 drawingContext.save();
 drawingContext.beginPath();
 drawingContext.arc(x, y, maskRadius, 0, 360); // use degrees
