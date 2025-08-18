@@ -10,20 +10,26 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 // canvas centre
 let x = 320
 let y = 240
+let maskRadius = 220; 
 
+drawingContext.save();
+drawingContext.beginPath();
+drawingContext.arc(x, y, maskRadius, 0, 360); // use degrees
+drawingContext.clip();
+
+//disk colour 
+fill(20)
+circle (x,y,440) 
+
+//Pulsing Blob
 let t = vocal / 100; //scaling vocal values to be between 0 - 1
-//lerp each color channel
 let red = lerp(255, 0, t);   // orange to blue
 let green = lerp(136, 200, t); // orange to blue
 let blue = lerp(0, 255, t);   // orange to blue
-
-//scaling to make vocals scale to circle size
 let vocalScale = map(vocal, 0, 100, 0, 300);
 
- // blob with fading edges using a for loop
   for (let size = vocalScale; size > 0; size -= 5) {
     let fade = map(size, 0, vocalScale, 0, 80); // fade edges
-
     fill(red, green, blue, fade);              // cyan glow
     noStroke();
     ellipse(x, y, size, size);
@@ -37,9 +43,13 @@ let vocalScale = map(vocal, 0, 100, 0, 300);
     ellipse(random(width), random(height), 1.5, 1.5);
   }
 
+fill(30,30,30,20)
+stroke (30)
+circle (x,y,140) 
 
-  fill(255)
-  circle (x,y,420)
+fill(0)
+circle (x,y,40) 
 
-  
+
+ 
   }}
