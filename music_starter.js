@@ -57,7 +57,7 @@ for (let i = 0; i < grainAmount; i++) {
   ellipse(random(width), random(height), 1.5, 1.5);
   }
   
-//tint (255,200)
+tint (255,200)
   image(myImage, 0, 0);
 
 fill(30,30,30,20)
@@ -65,7 +65,7 @@ stroke (30)
 circle (x,y,140) 
 
 fill(0)
-circle (x,y,55) 
+circle (x,y,60) 
 
  
 
