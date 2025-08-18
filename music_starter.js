@@ -65,7 +65,7 @@ stroke (30)
 circle (x,y,140) 
 
 fill(0)
-circle (x,y,40) 
+circle (x,y,55) 
 
  
 
