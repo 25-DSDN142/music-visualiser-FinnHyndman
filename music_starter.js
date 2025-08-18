@@ -22,7 +22,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     firstRun = false;
    }
  
-
 drawingContext.save();
 drawingContext.beginPath();
 drawingContext.arc(x, y, maskRadius, 0, 360); // use degrees
@@ -38,8 +37,7 @@ let t = vocal / 100; //scaling vocal values to be between 0 - 1
 let red = lerp(255, 0, t);   // orange to blue
 let green = lerp(136, 200, t); // orange to blue
 let blue = lerp(0, 255, t);   // orange to blue
-let vocalScale = map(vocal, 0, 100, 0, 300);
-
+let vocalScale = map(vocal, 0, 100, 20, 300);
 
 for (let size = vocalScale; size > 0; size -= 5) {
   let fade = map(size, 0, vocalScale, 0, 80); // fade edges
@@ -49,7 +47,7 @@ for (let size = vocalScale; size > 0; size -= 5) {
   }
 
 //grain overlay
-let grainAmount = map(bass, 0, 100, 800, 1000); // scale bass to quantity of cirlce drawn for grain effect.
+let grainAmount = map(bass, 0, 100, 500, 10000); // scale bass to quantity of cirlce drawn for grain effect.
 fill(255, 255, 255, 15); // semi-transparent white
 noStroke();
 
@@ -57,17 +55,12 @@ for (let i = 0; i < grainAmount; i++) {
   ellipse(random(width), random(height), 1.5, 1.5);
   }
   
-tint (255,200)
-  image(myImage, 0, 0);
-
-fill(30,30,30,20)
-stroke (30)
-circle (x,y,140) 
 
 fill(0)
-circle (x,y,60) 
+circle (x,y,55) 
 
- 
+ tint (255,60)
+  image(myImage, 5,2.5);
 
 
   }
