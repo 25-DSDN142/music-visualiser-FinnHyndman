@@ -97,6 +97,7 @@ for (let sizeShape2 = drumScale; sizeShape2 > 0; sizeShape2 -= 5) {
     line(cx, cy, x2, y2);
   }
 
+  
 //grain overlay
 let grainAmount = map(vocal, 0, 100, 1000, 10000); // scale bass to quantity of cirlce drawn for grain effect.
 fill(255, 255, 255, 15); // semi-transparent white
