@@ -30,13 +30,12 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     myImage = loadImage('diskteaxture.png');
     firstRun = false;
   }
-
-let seconds = floor(counter/60);
+let seconds = (counter/60);
 
   diskSetUp();
 
-  //circle roate between 45seconf and 75)
- if (seconds >=45 && seconds <= 75) { 
+  //circle roate control
+ if (seconds >=45.6 && seconds <= 75.5) { 
     rotating = true;
   } else {
     rotating = false;
@@ -54,8 +53,10 @@ let seconds = floor(counter/60);
   if (rotating) {
     angle += 0.6; // adjust rotate speed
   }
-// start animation // stop animation
-  if (seconds>=75 && seconds <= 89) {
+
+
+//travelling ball control
+  if (seconds>=75.5 && seconds <= 89) {
     travelingActive = true; 
   } else {
  travelingActive = false; 
@@ -98,9 +99,9 @@ let seconds = floor(counter/60);
 
   function pulsingCircleDrum(){
     let shapeRatio = drum / 100; 
-    let red   = lerp(0, 0, shapeRatio);
+    let red = lerp(0, 0, shapeRatio);
     let green = lerp(200, 50, shapeRatio);
-    let blue  = lerp(255, 150, shapeRatio);
+    let blue = lerp(255, 150, shapeRatio);
     let vocalScale = map(drum, 0, 100, 20, 300);
 
     for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
@@ -113,9 +114,9 @@ let seconds = floor(counter/60);
 
   function pulsingCircleBass(){
     let shapeRatio = bass / 100; 
-    let red   = lerp(0, 0, shapeRatio);
+    let red = lerp(0, 0, shapeRatio);
     let green = lerp(200, 120, shapeRatio);
-    let blue  = lerp(255, 220, shapeRatio);
+    let blue = lerp(255, 220, shapeRatio);
     let vocalScale = map(bass, 0, 100, 20, 300);
 
     for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
