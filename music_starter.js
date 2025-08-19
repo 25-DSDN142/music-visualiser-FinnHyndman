@@ -32,18 +32,14 @@ if(firstRun){
 
 diskSetUp()
 
-
 pulsingCircle()
-
-if (words === "affairs") {
+if (words === "phase") {
     travelingActive = true;  // start animation
   }
-
-  if (words === "current") {
+  if (words === "Current") {
     travelingActive = false; // stop animation
   }
-
-  // Only draw the ball if active
+// Only draw the ball if active
   if (travelingActive) {
     travellingBall(); 
   }
