@@ -5,6 +5,8 @@ let myImage;
 let x = 320;
 let y = 240;
 let maskRadius = 220; 
+let angle = 0
+
 
 //traveling
 let xMove = 600; //start location
@@ -29,17 +31,34 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     firstRun = false;
   }
 
+let seconds = floor(counter/60);
+
   diskSetUp();
 
-  pulsingCircleVocal();
+  //circle roate between 45seconf and 75)
+ if (seconds >=45 && seconds <= 75) { 
+    rotating = true;
+  } else {
+    rotating = false;
+  }
+
+  push();
+  translate(x, y);
+   rotate(angle);
   pulsingCircleDrum();
   pulsingCircleBass();
-
-  if (words === "phase") {
-    travelingActive = true;  // start animation
+  pulsingCircleVocal();
+  pop();
+  
+  // only move if rotating is true
+  if (rotating) {
+    angle += 0.6; // adjust rotate speed
   }
-  if (words === "Current") {
-    travelingActive = false; // stop animation
+// start animation // stop animation
+  if (seconds>=75 && seconds <= 89) {
+    travelingActive = true; 
+  } else {
+ travelingActive = false; 
   }
 
   if (travelingActive) {
@@ -62,6 +81,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   } 
 
   function pulsingCircleVocal(){
+
     let shapeRatio = vocal / 100; //scaling vocal values to be between 0 - 1
     let red   = lerp(0, 200, shapeRatio);
     let green = lerp(200, 220, shapeRatio);
@@ -72,7 +92,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
       fill(red, green, blue, fadeShape);              
       noStroke();
-      ellipse(320, 20, sizeShape1, sizeShape1);
+      ellipse(0, -220, sizeShape1, sizeShape1);
     }
   }
 
@@ -87,7 +107,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
-      ellipse(129.47, 350, sizeShape1, sizeShape1);
+      ellipse(-190.53, 110, sizeShape1, sizeShape1);
     }
   }
 
@@ -102,7 +122,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
-      ellipse(510.53, 350, sizeShape1, sizeShape1);
+      ellipse(190.53, 110, sizeShape1, sizeShape1);
     }
   }
 
