@@ -56,24 +56,6 @@ let seconds = (counter/60);
   } else {
     rotating = false;
   }
-
-//circle to centre timing
-if (seconds >= 60.5 && seconds <= 75.5) {
-    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
-    xVocal = lerp(xVocal, targetX, progress);
-    yVocal = lerp(yVocal, targetY, progress);
-}
-    if (seconds >= 68 && seconds <= 75.5) {
-    let progress = map(seconds, 68, 75.5, 0, 1); 
-    xBass = lerp(xBass, targetX, progress);
-    yBass = lerp(yBass, targetY, progress);
-
-  }
-    if (seconds >= 70.8 && seconds <= 75.5) {
-    let progress = map(seconds, 70.8, 75.5, 0, 1); 
-    xDrum = lerp(xDrum, targetX, progress);
-    yDrum = lerp(yDrum, targetY, progress);
-}
   
   push();
   translate(x, y);
@@ -121,6 +103,12 @@ if (seconds >= 60.5 && seconds <= 75.5) {
     let blue = lerp(255, 255, shapeRatio);
     let vocalScale = map(vocal, 0, 100, 20, 300);
 
+     //circle shift to centre
+    if (seconds >= 60.5 && seconds <= 75.5) {
+    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
+    xVocal = lerp(xVocal, targetX, progress);
+    yVocal = lerp(yVocal, targetY, progress);
+}
     for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
       let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
       fill(red, green, blue, fadeShape);              
@@ -136,6 +124,12 @@ if (seconds >= 60.5 && seconds <= 75.5) {
     let blue = lerp(255, 150, shapeRatio);
     let vocalScale = map(drum, 0, 100, 20, 300);
 
+    //circle shift to centre
+   if (seconds >= 70.8 && seconds <= 75.5) {
+    let progress = map(seconds, 70.8, 75.5, 0, 1); 
+    xDrum = lerp(xDrum, targetX, progress);
+    yDrum = lerp(yDrum, targetY, progress);
+}
     for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
@@ -151,6 +145,13 @@ if (seconds >= 60.5 && seconds <= 75.5) {
     let blue = lerp(255, 220, shapeRatio);
     let vocalScale = map(bass, 0, 100, 20, 300);
 
+         //circle shift to centre
+
+    if (seconds >= 68 && seconds <= 75.5) {
+    let progress = map(seconds, 68, 75.5, 0, 1); 
+    xBass = lerp(xBass, targetX, progress);
+    yBass = lerp(yBass, targetY, progress);
+  }
     for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
@@ -199,3 +200,9 @@ if (seconds >= 60.5 && seconds <= 75.5) {
     fill(0);
     circle(x, y, 30); 
   }}
+
+  function flashingSquare() {
+
+
+    
+  }
