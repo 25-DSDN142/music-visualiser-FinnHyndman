@@ -7,12 +7,24 @@ let y = 240;
 let maskRadius = 220; 
 let angle = 0
 
+//pulsing circles start points
+let xVocal = 0
+let yVocal = -220
+
+let xBass = 190.53
+let yBass = 110
+
+let xDrum = -190.53
+let yDrum = 110
+
+let targetX = 0; // center or desired point
+let targetY = 0;
 
 //traveling
-let xMove = 600; //start location
+let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
-let travelingY = 300;
+let travelingY = 240;
 
 let scale = 100;
 let glow = 100;
@@ -34,19 +46,40 @@ let seconds = (counter/60);
 
   diskSetUp();
 
+ if (travelingActive) {
+    travellingBall(); 
+  }
+
   //circle roate control
- if (seconds >=45.6 && seconds <= 75.5) { 
+ if (seconds >=45.7 && seconds <= 75.5) { 
     rotating = true;
   } else {
     rotating = false;
   }
 
+if (seconds >= 60 && seconds <= 75.5) {
+    let progress = map(seconds, 60, 75.5, 0, 1); 
+    xVocal = lerp(xVocal, targetX, progress);
+    yVocal = lerp(yVocal, targetY, progress);
+}
+    if (seconds >= 68 && seconds <= 75.5) {
+    let progress = map(seconds, 68, 75.5, 0, 1); 
+    xBass = lerp(xBass, targetX, progress);
+    yBass = lerp(yBass, targetY, progress);
+
+  }
+    if (seconds >= 70.8 && seconds <= 75.5) {
+    let progress = map(seconds, 70.8, 75.5, 0, 1); 
+    xDrum = lerp(xDrum, targetX, progress);
+    yDrum = lerp(yDrum, targetY, progress);
+}
+  
   push();
   translate(x, y);
-   rotate(angle);
-  pulsingCircleDrum();
-  pulsingCircleBass();
+  rotate(angle);
   pulsingCircleVocal();
+  pulsingCircleBass();
+  pulsingCircleDrum();
   pop();
   
   // only move if rotating is true
@@ -54,21 +87,19 @@ let seconds = (counter/60);
     angle += 0.6; // adjust rotate speed
   }
 
-
 //travelling ball control
   if (seconds>=75.5 && seconds <= 89) {
     travelingActive = true; 
   } else {
  travelingActive = false; 
   }
+ 
 
-  if (travelingActive) {
-    travellingBall(); 
-  }
 
   grainOverlay();
   diskOverlay();
 
+  
   function diskSetUp(){
     //disk mask
     drawingContext.save();
@@ -93,7 +124,7 @@ let seconds = (counter/60);
       let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
       fill(red, green, blue, fadeShape);              
       noStroke();
-      ellipse(0, -220, sizeShape1, sizeShape1);
+      ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
     }
   }
 
@@ -108,7 +139,7 @@ let seconds = (counter/60);
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
-      ellipse(-190.53, 110, sizeShape1, sizeShape1);
+      ellipse(xDrum, yDrum, sizeShape1, sizeShape1);
     }
   }
 
@@ -123,7 +154,7 @@ let seconds = (counter/60);
       let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
-      ellipse(190.53, 110, sizeShape1, sizeShape1);
+      ellipse(xBass, yBass, sizeShape1, sizeShape1);
     }
   }
 
@@ -166,5 +197,4 @@ let seconds = (counter/60);
 
     fill(0);
     circle(x, y, 30); 
-  }
-}
+  }}
