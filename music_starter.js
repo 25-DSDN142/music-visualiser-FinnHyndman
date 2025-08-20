@@ -57,8 +57,9 @@ let seconds = (counter/60);
     rotating = false;
   }
 
-if (seconds >= 60 && seconds <= 75.5) {
-    let progress = map(seconds, 60, 75.5, 0, 1); 
+//circle to centre timing
+if (seconds >= 60.5 && seconds <= 75.5) {
+    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
     xVocal = lerp(xVocal, targetX, progress);
     yVocal = lerp(yVocal, targetY, progress);
 }
