@@ -10,25 +10,20 @@ let angle = 0
 //pulsing circles start points
 let xVocal = 0
 let yVocal = -220
-
 let xBass = 190.53
 let yBass = 110
-
 let xDrum = -190.53
 let yDrum = 110
+let targetX = 0; // center point
+let targetY = 0; // center point
 
-let targetX = 0; // center or desired point
-let targetY = 0;
-
-//traveling
+//traveling ball
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
-let travelingY = 240;
-
+let travelingY = 240; //Y axis
 let scale = 100;
 let glow = 100;
-
 let travelingActive = false;
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
