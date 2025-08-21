@@ -21,7 +21,7 @@ let targetY = 0; // center point
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
-let travelingY = 200; //Y axis
+let travelingY = 150; //Y axis
 let scale = 100;
 let glow = 100;
 let travelingActive = false;
@@ -95,7 +95,6 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
   text('Lorde', 150, 190);
   text('Virgin', 420, 300);
 
-
   
   function diskSetUp(){
     //disk mask
@@ -158,7 +157,13 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
     blue = lerp(255, 150, shapeRatio);
   }
 
-    let vocalScale = map(drum, 0, 100, 20, 300);
+ let drumScale;
+  if (seconds > 70.8) {
+    // smaller mapping range
+    drumScale = map(drum, 0, 100, 20, 275); // was 20–300 before
+  } else {
+    drumScale = map(drum, 0, 100, 20, 300);
+  }
 
     //circle shift to centre
    if (seconds >= 70.8 && seconds <= 75.5) {
@@ -166,8 +171,8 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
     xDrum = lerp(xDrum, targetX, progress);
     yDrum = lerp(yDrum, targetY, progress);
 }
-    for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
-      let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
+    for (let sizeShape1 = drumScale; sizeShape1 > 0; sizeShape1 -= 5) {
+      let fadeShape1 = map(sizeShape1, 0, drumScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
       ellipse(xDrum, yDrum, sizeShape1, sizeShape1);
@@ -190,7 +195,14 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
      blue = lerp(255, 220, shapeRatio);
   }
 
-    let vocalScale = map(bass, 0, 100, 20, 300);
+let bassScale;
+  if (seconds > 70.8) {
+    // smaller mapping range
+    bassScale = map(drum, 0, 100, 20, 275); // was 20–300 before
+  } else {
+    bassScale = map(drum, 0, 100, 20, 300);
+  }
+
 
     //circle shift to centre
     if (seconds >= 68 && seconds <= 75.5) {
@@ -198,8 +210,8 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
     xBass = lerp(xBass, targetX, progress);
     yBass = lerp(yBass, targetY, progress);
   }
-    for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
-      let fadeShape1 = map(sizeShape1, 0, vocalScale, 0, 80); 
+    for (let sizeShape1 = bassScale; sizeShape1 > 0; sizeShape1 -= 5) {
+      let fadeShape1 = map(sizeShape1, 0, bassScale, 0, 80); 
       fill(red, green, blue, fadeShape1);              
       noStroke();
       ellipse(xBass, yBass, sizeShape1, sizeShape1);
@@ -291,3 +303,12 @@ if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
 }
 
 
+if (seconds < 45.7) {
+  let size = map() 
+
+
+  } else {
+    red = lerp(0, 0, shapeRatio);
+    green = lerp(200, 50, shapeRatio);
+    blue = lerp(255, 150, shapeRatio);
+  }
