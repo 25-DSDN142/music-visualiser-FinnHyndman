@@ -21,7 +21,7 @@ let targetY = 0; // center point
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
-let travelingY = 240; //Y axis
+let travelingY = 200; //Y axis
 let scale = 100;
 let glow = 100;
 let travelingActive = false;
@@ -69,16 +69,19 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   if (rotating) {
     angle += 0.6; // adjust rotate speed
   }
+  
+//flashing rectangle
+if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
+  rectangleflash(random(width),random(height),random(width),random(height),2)
+
+
+  
 //travelling ball control
   if (seconds>=75.5 && seconds <= 89) {
     travelingActive = true; 
   } else {
  travelingActive = false; 
   }
-
-//flashing rectangle
-if(seconds>75 && seconds<90 ){
-  rectangleflash(random(width),random(height),random(width),random(height),2)
 
 }
   grainOverlay();
@@ -91,7 +94,6 @@ if(seconds>75 && seconds<90 ){
   text('Affairs', 320, 135);
   text('Lorde', 150, 190);
   text('Virgin', 420, 300);
-
 
 
   
@@ -211,6 +213,7 @@ if(seconds>75 && seconds<90 ){
       xMove = 400;
       xSpeed = xSpeed+3;
     }
+
     noStroke();
     fill(0,200,255,glow);
     ellipse(xMove-5, travelingY, scale, scale);
@@ -225,6 +228,8 @@ if(seconds>75 && seconds<90 ){
       let scaleW = 100-i/1.5;
       fill(0,200,255,glowX/5);
       ellipse(xMove+shiftX, travelingY, scaleW, scaleW);
+
+
     }
   }
 
