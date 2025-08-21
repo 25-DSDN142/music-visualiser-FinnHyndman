@@ -24,7 +24,7 @@ let maxSpeed = 35;
 let travelingY = 150; //Y axis
 let scale = 100;
 let glow = 100;
-let travelingActive = false;
+//let travelingActive = false;
 
 let rectRed = 255
 let rectGreen = 255
@@ -46,16 +46,17 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
- if (travelingActive) {
-    travellingBall(); 
-  }
+ //if (travelingActive) {
+ //   travellingBall(); 
+ // }
 
-  //circle roate control
- if (seconds >=45.7 && seconds <= 75.5) { 
+if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
+    //circle roate control
+    if (seconds >=45.7 && seconds <= 75.5) { 
     rotating = true;
-  } else {
+   } else {
     rotating = false;
-  }
+    }
   
   push();
   translate(x, y);
@@ -68,19 +69,20 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   // only move if rotating is true
   if (rotating) {
     angle += 0.6; // adjust rotate speed
-  }
+  }}
+  
   
 //flashing rectangle
-if(seconds>75 && seconds<79 || (seconds > 82 && seconds < 86)){
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   rectangleflash(random(width),random(height),random(width),random(height),2)
 
-
-  
 //travelling ball control
-  if (seconds>=75.5 && seconds <= 89) {
-    travelingActive = true; 
-  } else {
- travelingActive = false; 
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+  travellingBall()
+    //travelingActive = true; 
+  //} else {
+ //travelingActive = false; 
+
   }
 
 }
