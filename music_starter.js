@@ -26,6 +26,11 @@ let scale = 100;
 let glow = 100;
 let travelingActive = false;
 
+let rectRed= 0
+let rectGreen= 190
+let rectBlue= 255
+let rectOpacity = 90
+
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textFont('Verdana'); // please use CSS safe fonts
@@ -37,7 +42,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     myImage = loadImage('diskteaxture.png');
     firstRun = false;
   }
-let seconds = (counter/60);
+  let seconds = (counter/60);
 
   diskSetUp();
 
@@ -64,19 +69,17 @@ let seconds = (counter/60);
   if (rotating) {
     angle += 0.6; // adjust rotate speed
   }
-
 //travelling ball control
   if (seconds>=75.5 && seconds <= 89) {
     travelingActive = true; 
   } else {
  travelingActive = false; 
   }
- 
-
-
+if(seconds>75 && seconds<100 ){
+  rectangleflash(320,240,50,220,2)
+}
   grainOverlay();
   diskOverlay();
-
   
   function diskSetUp(){
     //disk mask
@@ -196,8 +199,44 @@ let seconds = (counter/60);
     circle(x, y, 30); 
   }}
 
-  function flashingSquare() {
+  function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
+  noStroke(); 
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity);
+  rect(squareX, squareY, squareW, squareH, squareCurve);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity);
+  rect(squareX, squareY, squareW+6, squareH+6, squareCurve+3);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity);
+  rect(squareX, squareY, squareW+12, squareH+12, squareCurve+6);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity);
+  rect(squareX, squareY, squareW+18, squareH+18, squareCurve+9);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-5);
+  rect(squareX, squareY, squareW+24, squareH+24, squareCurve+12);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-10);
+  rect(squareX, squareY, squareW+30, squareH+30, squareCurve+15);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-15);
+  rect(squareX, squareY, squareW+36, squareH+36, squareCurve+18);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-20);
+  rect(squareX, squareY, squareW+42, squareH+42, squareCurve+21);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-25);
+  rect(squareX, squareY, squareW+48, squareH+48, squareCurve+24);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-30);
+  rect(squareX, squareY, squareW+54, squareH+54, squareCurve+27);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-40);
+  rect(squareX, squareY, squareW+60, squareH+60, squareCurve+30);
+
+  fill(rectRed, rectGreen, rectBlue, rectOpacity-50);
+  rect(squareX, squareY, squareW+66, squareH+66, squareCurve+33);
+}
 
 
-    
-  }
