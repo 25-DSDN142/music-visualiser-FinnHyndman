@@ -26,14 +26,14 @@ let scale = 100;
 let glow = 100;
 let travelingActive = false;
 
-let rectRed= 0
-let rectGreen= 190
-let rectBlue= 255
+let rectRed = 255
+let rectGreen = 255
+let rectBlue = 255
 let rectOpacity = 90
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  textFont('Verdana'); // please use CSS safe fonts
+  textFont('sans-serif'); // please use CSS safe fonts
   rectMode(CENTER);
   textSize(24);
   background(0);
@@ -75,11 +75,25 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   } else {
  travelingActive = false; 
   }
-if(seconds>75 && seconds<100 ){
-  rectangleflash(320,240,50,220,2)
+
+//flashing rectangle
+if(seconds>75 && seconds<90 ){
+  rectangleflash(random(width),random(height),random(width),random(height),2)
+
 }
   grainOverlay();
   diskOverlay();
+
+  textSize(10);
+  textStyle(BOLD);
+  fill('white');
+  text('Current', 320, 120);
+  text('Affairs', 320, 135);
+  text('Lorde', 150, 190);
+  text('Virgin', 420, 300);
+
+
+
   
   function diskSetUp(){
     //disk mask
@@ -93,33 +107,55 @@ if(seconds>75 && seconds<100 ){
     circle(x, y, 440);
   } 
 
-  function pulsingCircleVocal(){
+  function pulsingCircleVocal() {
+  let shapeRatio = vocal / 100; 
+  let red, green, blue; 
 
-    let shapeRatio = vocal / 100; //scaling vocal values to be between 0 - 1
-    let red   = lerp(0, 200, shapeRatio);
-    let green = lerp(200, 220, shapeRatio);
-    let blue = lerp(255, 255, shapeRatio);
-    let vocalScale = map(vocal, 0, 100, 20, 300);
+ if (seconds < 45.7) {
+    // orange to gold
+    red   = lerp(255, 255, shapeRatio);
+    green = lerp(165, 215, shapeRatio);
+    blue  = lerp(0, 0, shapeRatio);
+  } else {
+    // blue to white 
+    red   = lerp(0, 200, shapeRatio);
+    green = lerp(190, 240, shapeRatio);
+    blue  = lerp(255, 255, shapeRatio);
+  }
 
-     //circle shift to centre
-    if (seconds >= 60.5 && seconds <= 75.5) {
+  let vocalScale = map(vocal, 0, 100, 20, 300);
+
+  // Circle shift to centre
+  if (seconds >= 60.5 && seconds <= 75.5) {
     let progress = map(seconds, 60.5 , 75.5, 0, 1); 
     xVocal = lerp(xVocal, targetX, progress);
     yVocal = lerp(yVocal, targetY, progress);
-}
-    for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
-      let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
-      fill(red, green, blue, fadeShape);              
-      noStroke();
-      ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
-    }
   }
+
+  // Draw pulsing circle
+  for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
+    let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
+    fill(red, green, blue, fadeShape);              
+    noStroke();
+    ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
+  }
+}
 
   function pulsingCircleDrum(){
     let shapeRatio = drum / 100; 
-    let red = lerp(0, 0, shapeRatio);
-    let green = lerp(200, 50, shapeRatio);
-    let blue = lerp(255, 150, shapeRatio);
+    let red, green, blue; 
+
+ if (seconds < 45.7) {
+    // orange to gold
+    red   = lerp(240, 230, shapeRatio);
+    green = lerp(20, 100, shapeRatio);
+    blue  = lerp(0, 40, shapeRatio);
+  } else {
+    red = lerp(0, 0, shapeRatio);
+    green = lerp(200, 50, shapeRatio);
+    blue = lerp(255, 150, shapeRatio);
+  }
+
     let vocalScale = map(drum, 0, 100, 20, 300);
 
     //circle shift to centre
@@ -138,13 +174,23 @@ if(seconds>75 && seconds<100 ){
 
   function pulsingCircleBass(){
     let shapeRatio = bass / 100; 
-    let red = lerp(0, 0, shapeRatio);
-    let green = lerp(200, 120, shapeRatio);
-    let blue = lerp(255, 220, shapeRatio);
+    let red, green, blue; 
+
+    if (seconds < 45.7) {
+    // orange to gold
+    red   = lerp(240, 255, shapeRatio);
+    green = lerp(80, 140, shapeRatio);
+    blue  = lerp(0, 20, shapeRatio);
+  } else {
+    //blue
+     red = lerp(0, 0, shapeRatio);
+     green = lerp(200, 120, shapeRatio);
+     blue = lerp(255, 220, shapeRatio);
+  }
+
     let vocalScale = map(bass, 0, 100, 20, 300);
 
-         //circle shift to centre
-
+    //circle shift to centre
     if (seconds >= 68 && seconds <= 75.5) {
     let progress = map(seconds, 68, 75.5, 0, 1); 
     xBass = lerp(xBass, targetX, progress);
