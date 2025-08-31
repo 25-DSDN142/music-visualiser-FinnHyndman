@@ -18,13 +18,13 @@ let targetX = 0; // center point
 let targetY = 0; // center point
 
 //traveling ball
+let xSpeed = 40 //ball x speed
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
 let travelingY = 150; //Y axis
 let scale = 100;
 let glow = 100;
-//let travelingActive = false;
 
 let rectRed = 255
 let rectGreen = 255
@@ -71,8 +71,6 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
-
-  
   
 //flashing rectangle
 if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
@@ -90,10 +88,6 @@ if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 //travelling ball control
 if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
-    //travelingActive = true; 
-  //} else {
- //travelingActive = false; 
-
   }
 
 }
@@ -232,7 +226,6 @@ let bassScale;
   }
 
   function travellingBall(){
-    let xSpeed = 40
     xMove = xMove-xSpeed;
     if (xMove < -300){
       xMove = 400;
