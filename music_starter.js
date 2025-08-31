@@ -71,10 +71,23 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
+
+  
   
 //flashing rectangle
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-  rectangleflash(random(width),random(height),random(width),random(height),2)
+if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+
+  // only updates randoms every 20 frames
+  if (frameCount % 20 === 0) {
+    squareX = random(width);
+    squareY = random(height);
+    squareW = random(width);
+    squareH = random(height);
+  
+  //rectangleflash(squareX, squareY, squareW, squareH, 2);
+  rectangleflash(squareX, squareY, squareW, squareH, 2);
+
+  }
 
 //travelling ball control
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
