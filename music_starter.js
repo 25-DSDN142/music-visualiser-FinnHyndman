@@ -84,13 +84,11 @@ if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
     squareW = random(width);
     squareH = random(height);
   
-  //rectangleflash(squareX, squareY, squareW, squareH, 2);
   rectangleflash(squareX, squareY, squareW, squareH, 2);
-
   }
 
 //travelling ball control
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
     //travelingActive = true; 
   //} else {
@@ -234,7 +232,7 @@ let bassScale;
   }
 
   function travellingBall(){
-    let xSpeed = map(vocal, 0, 100, minSpeed, maxSpeed);
+    let xSpeed = 40
     xMove = xMove-xSpeed;
     if (xMove < -300){
       xMove = 400;
