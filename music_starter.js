@@ -7,6 +7,9 @@ let y = 240;
 let maskRadius = 220; 
 let angle = 0
 
+//noise 
+let grainAmount = 9000
+
 //pulsing circles start points
 let xVocal = 0
 let yVocal = -220
@@ -22,7 +25,7 @@ let xSpeed = 30 //ball x speed
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
-let travelingY = 150; //Y axis
+let travelingY = 240; //Y axis
 let scale = 100;
 let glow = 100;
 
@@ -32,13 +35,9 @@ let rectBlue = 255
 let rectOpacity = 90
 
 let filmReelImages = [];
-let filmIndex = 0;     // which frame we’re on
+let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancing
 
-//blueorb
-let startX = 400;
-let startY = 200;
-let orbSpeed = 30;
 
 let tailLength = 40;   // how many ellipses in the tail
 let spacingX = 3;     // horizontal spacing between ellipses
@@ -77,7 +76,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
+if (/*!*/((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
     //circle roate control
     if (seconds >=45.7 && seconds <= 75.5) { 
     rotating = true;
@@ -99,18 +98,18 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
-/*
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+
+if(seconds>0 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   blueorb()
 }
-  */
+  
 
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
     chorusCirclePulse()
 }
 
 //flashing rectangle
-if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 
   // only updates randoms every 5 frames
   if (frameCount % 5 === 0) {
@@ -123,13 +122,13 @@ if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
  }
 
 //travelling ball control
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
   }
 
 }
 
-/*if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+/*f ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   filmReel()
 }
   */
@@ -286,12 +285,13 @@ function chorusCirclePulse() {
     ellipse(x, y, sizeShape2, sizeShape2);
   }}
 
-
   function travellingBall(){
+
+
     xMove = xMove-xSpeed;
     if (xMove < -300){
-      xMove = 400;
-      xSpeed = xSpeed+3;
+      xMove = 200;
+      xSpeed = xSpeed+1;
     }
 
     noStroke();
@@ -314,7 +314,6 @@ function chorusCirclePulse() {
   }
 
   function grainOverlay(){
-    let grainAmount = map(vocal, 0, 100, 1000, 10000); 
     fill(255, 255, 255, 15); 
     noStroke();
 
@@ -340,7 +339,7 @@ function filmReel(){
   image(filmReelImages[filmIndex], 0, 0);
 }
 
-  function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
+function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
   noStroke(); 
 
   fill(rectRed, rectGreen, rectBlue, rectOpacity);
@@ -381,7 +380,17 @@ function filmReel(){
 }
 
 function blueorb(){
+fill(255,0,0)
+ellipse(startX,startY,50)
 
+if (seconds<4){
+startX = startX+1;
+startY = startY+1;
+}
+
+
+
+/*
    for (let i = 0; i < tailLength; i++) {
     let alpha = map(i, 0, tailLength, 255, 50); // fade out
     fill(153, 250, 255, alpha);
@@ -396,5 +405,6 @@ function blueorb(){
   if (startX > width + tailW*tailLength || startY > height + tailH*tailLength) {
     startX = -tailW;
     startY = -tailH;
-}
+    */
+
 }
