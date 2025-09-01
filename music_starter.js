@@ -31,6 +31,10 @@ let rectGreen = 255
 let rectBlue = 255
 let rectOpacity = 90
 
+let filmReelImages = [];
+let filmIndex = 0;     // which frame we’re on
+let filmSpeed = 6;     // how many draw frames before advancing
+
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   textFont('sans-serif'); // please use CSS safe fonts
@@ -40,8 +44,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   if(firstRun){
     myImage = loadImage('diskteaxture.png');
-    myImage2 = loadImage('Film Reel1.png');
 
+    filmReelImages = [
+    loadImage('Film Reel1.png'),
+    loadImage('Film Reel2.png'),
+    loadImage('Film Reel3.png'),
+    loadImage('Film Reel4.png'),
+    loadImage('Film Reel5.png'),
+    loadImage('Film Reel6.png'),
+    loadImage('Film Reel7.png'),
+    loadImage('Film Reel8.png'),
+    loadImage('Film Reel9.png'),
+    ]
 
     firstRun = false;
   }
@@ -49,9 +63,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
- //if (travelingActive) {
- //   travellingBall(); 
- // }
+
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+  filmReel()
+}
 
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
     //circle roate control
@@ -73,7 +88,6 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
   if (rotating) {
     angle += 0.6; // adjust rotate speed
   }}
-  
   
 //flashing rectangle
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
@@ -266,11 +280,20 @@ let bassScale;
 
   function diskOverlay(){
     image(myImage,0,0);
-
-
     fill(0);
     circle(x, y, 30); 
   }}
+
+function filmReel(){
+  if (filmReelImages.length === 0) return;
+
+  // change image every `filmSpeed` frames
+  if (frameCount % filmSpeed === 0) {
+    filmIndex = (filmIndex + 1) % filmReelImages.length;
+  }
+
+  image(filmReelImages[filmIndex], 0, 0);
+}
 
   function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
   noStroke(); 
