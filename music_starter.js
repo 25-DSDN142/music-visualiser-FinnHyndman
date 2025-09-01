@@ -40,6 +40,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   if(firstRun){
     myImage = loadImage('diskteaxture.png');
+    myImage2 = loadImage('Film Reel1.png');
+
+
     firstRun = false;
   }
   let seconds = (counter/60);
@@ -264,6 +267,7 @@ let bassScale;
   function diskOverlay(){
     image(myImage,0,0);
 
+
     fill(0);
     circle(x, y, 30); 
   }}
@@ -309,12 +313,4 @@ let bassScale;
 }
 
 
-if (seconds < 45.7) {
-  let size = map() 
 
-
-  } else {
-    red = lerp(0, 0, shapeRatio);
-    green = lerp(200, 50, shapeRatio);
-    blue = lerp(255, 150, shapeRatio);
-  }
