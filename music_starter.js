@@ -85,6 +85,7 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     rotating = false;
     }
   
+
   push();
   translate(x, y);
   rotate(angle);
@@ -98,36 +99,41 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
+/*
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-blueorb()
+  blueorb()
+}
+  */
+
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+    chorusCirclePulse()
 }
 
 //flashing rectangle
-if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 
-  // only updates randoms every 20 frames
-  if (frameCount % 10 === 0) {
+  // only updates randoms every 5 frames
+  if (frameCount % 5 === 0) {
     squareX = random(width);
     squareY = random(height);
     squareW = random(width);
     squareH = random(height);
   
   rectangleflash(squareX, squareY, squareW, squareH, 2);
-  }
-
-pulsingCircleVocalChorus()
+ }
 
 //travelling ball control
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
-  
+  }
 
 }
 
-/*
-if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+/*if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   filmReel()
 }
   */
+  
 
   grainOverlay();
   diskOverlay();
@@ -263,39 +269,23 @@ let bassScale;
     }
   }
 
-function pulsingCircleVocalChorus() {
-  let shapeRatio = vocal / 100; 
-  let red, green, blue; 
-
- if (seconds < 45.7) {
-    // orange to gold
-    red   = lerp(255, 255, shapeRatio);
-    green = lerp(165, 215, shapeRatio);
-    blue  = lerp(0, 0, shapeRatio);
-  } else {
+function chorusCirclePulse() {
+  let shapeRatio = drum / 100; 
     // blue to white 
     red   = lerp(0, 200, shapeRatio);
     green = lerp(190, 240, shapeRatio);
     blue  = lerp(255, 255, shapeRatio);
-  }
-
-  let vocalScale = map(vocal, 0, 100, 20, 300);
-
-  // Circle shift to centre
-  if (seconds >= 60.5 && seconds <= 75.5) {
-    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
-    xVocal = lerp(xVocal, targetX, progress);
-    yVocal = lerp(yVocal, targetY, progress);
-  }
+  
+  let chorusScale = map(drum, 0, 100, 20, 300);
 
   // Draw pulsing circle
-  for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
-    let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
+  for (let sizeShape2 = chorusScale; sizeShape2 > 0; sizeShape2 -= 5) {
+    let fadeShape = map(sizeShape2, 0, chorusScale, 0, 80); // fade edges
     fill(red, green, blue, fadeShape);              
     noStroke();
-    ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
-  }
-}
+    ellipse(x, y, sizeShape2, sizeShape2);
+  }}
+
 
   function travellingBall(){
     xMove = xMove-xSpeed;
