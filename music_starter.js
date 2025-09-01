@@ -73,7 +73,7 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
   
   
 //flashing rectangle
-if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 
   // only updates randoms every 20 frames
   if (frameCount % 20 === 0) {
@@ -86,7 +86,7 @@ if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   }
 
 //travelling ball control
-if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
   }
 
