@@ -115,10 +115,11 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   rectangleflash(squareX, squareY, squareW, squareH, 2);
   }
 
+pulsingCircleVocalChorus()
+
 //travelling ball control
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
-  }
+  
 
 }
 
@@ -261,6 +262,40 @@ let bassScale;
       ellipse(xBass, yBass, sizeShape1, sizeShape1);
     }
   }
+
+function pulsingCircleVocalChorus() {
+  let shapeRatio = vocal / 100; 
+  let red, green, blue; 
+
+ if (seconds < 45.7) {
+    // orange to gold
+    red   = lerp(255, 255, shapeRatio);
+    green = lerp(165, 215, shapeRatio);
+    blue  = lerp(0, 0, shapeRatio);
+  } else {
+    // blue to white 
+    red   = lerp(0, 200, shapeRatio);
+    green = lerp(190, 240, shapeRatio);
+    blue  = lerp(255, 255, shapeRatio);
+  }
+
+  let vocalScale = map(vocal, 0, 100, 20, 300);
+
+  // Circle shift to centre
+  if (seconds >= 60.5 && seconds <= 75.5) {
+    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
+    xVocal = lerp(xVocal, targetX, progress);
+    yVocal = lerp(yVocal, targetY, progress);
+  }
+
+  // Draw pulsing circle
+  for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
+    let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
+    fill(red, green, blue, fadeShape);              
+    noStroke();
+    ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
+  }
+}
 
   function travellingBall(){
     xMove = xMove-xSpeed;
