@@ -76,7 +76,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-if (/*!*/((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
+if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
     //circle roate control
     if (seconds >=45.7 && seconds <= 75.5) { 
     rotating = true;
@@ -98,11 +98,11 @@ if (/*!*/((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.
     angle += 0.6; // adjust rotate speed
   }}
   
-
+/*
 if(seconds>0 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   blueorb()
 }
-  
+ */ 
 
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
     chorusCirclePulse()
@@ -379,14 +379,10 @@ function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
   rect(squareX, squareY, squareW+66, squareH+66, squareCurve+33);
 }
 
-function blueorb(){
+/*function blueorb(){
 fill(255,0,0)
 ellipse(startX,startY,50)
-
-if (seconds<4){
-startX = startX+1;
-startY = startY+1;
-}
+*/
 
 
 
@@ -407,4 +403,4 @@ startY = startY+1;
     startY = -tailH;
     */
 
-}
+
