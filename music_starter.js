@@ -33,7 +33,20 @@ let rectOpacity = 90
 
 let filmReelImages = [];
 let filmIndex = 0;     // which frame we’re on
-let filmSpeed = 6;     // how many draw frames before advancing
+let filmSpeed = 2;     // how many draw frames before advancing
+
+//blueorb
+let startX = 400;
+let startY = 200;
+let orbSpeed = 30;
+
+let tailLength = 40;   // how many ellipses in the tail
+let spacingX = 3;     // horizontal spacing between ellipses
+let spacingY = 3;     // vertical spacing between ellipses
+let tailW = 15;       // width of each tail ellipse
+let tailH = 15;       // height of each tail ellipse
+
+
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -43,6 +56,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   background(0);
 
   if(firstRun){
+    
     myImage = loadImage('diskteaxture.png');
 
     filmReelImages = [
@@ -62,11 +76,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let seconds = (counter/60);
 
   diskSetUp();
-
-
-if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
-  filmReel()
-}
 
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
     //circle roate control
@@ -89,11 +98,15 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+blueorb()
+}
+
 //flashing rectangle
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 
   // only updates randoms every 20 frames
-  if (frameCount % 20 === 0) {
+  if (frameCount % 10 === 0) {
     squareX = random(width);
     squareY = random(height);
     squareW = random(width);
@@ -108,6 +121,13 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   }
 
 }
+
+/*
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+  filmReel()
+}
+  */
+
   grainOverlay();
   diskOverlay();
 
@@ -335,5 +355,21 @@ function filmReel(){
   rect(squareX, squareY, squareW+66, squareH+66, squareCurve+33);
 }
 
+function blueorb(){
 
+   for (let i = 0; i < tailLength; i++) {
+    let alpha = map(i, 0, tailLength, 255, 50); // fade out
+    fill(0, 0, 255, alpha);
+    ellipse(startX - i * spacingX, startY - i * spacingY, tailW, tailH);
+  }
 
+  // move the head diagonally
+  startX += orbSpeed;
+  startY += orbSpeed;
+
+  // reset when off screen
+  if (startX > width + tailW*tailLength || startY > height + tailH*tailLength) {
+    startX = -tailW;
+    startY = -tailH;
+}
+}
