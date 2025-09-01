@@ -18,7 +18,7 @@ let targetX = 0; // center point
 let targetY = 0; // center point
 
 //traveling ball
-let xSpeed = 40 //ball x speed
+let xSpeed = 30 //ball x speed
 let xMove = 320; //start location
 let minSpeed = 10;
 let maxSpeed = 35;
@@ -359,7 +359,7 @@ function blueorb(){
 
    for (let i = 0; i < tailLength; i++) {
     let alpha = map(i, 0, tailLength, 255, 50); // fade out
-    fill(0, 0, 255, alpha);
+    fill(153, 250, 255, alpha);
     ellipse(startX - i * spacingX, startY - i * spacingY, tailW, tailH);
   }
 
