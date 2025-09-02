@@ -1,13 +1,15 @@
 let firstRun = true;
 let myImage; 
 
-// canvas centre
+//centre points
 let x = 320;
 let y = 240;
 let maskRadius = 220; 
+
+// rotation controls
 let angle = 0
 let diskAngle = 0
-let currentSpeed = 0.6;
+let diskSpeed = 0.6;
 
 //noise controls
 let grainAmount = 9000
@@ -151,15 +153,12 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   
   
   grainOverlay();
-  
-  if(seconds >0.5){
-//roatating disk
+
+  //roatating disk
   push();
   translate(x, y);
   rotate(diskAngle);
-
   diskOverlay();
-
   textSize(10);
   textStyle(BOLD);
   fill('white');
@@ -168,14 +167,14 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   text('Lorde', -170, -50);
   text('Virgin', 100, 60); 
   pop()
-  }
-
-  let targetSpeed = 0.6; 
-if (seconds > 75.8  && seconds < 79) {
-  targetSpeed = 20;
+  
+  //speed up rotation on chrous.
+let targetSpeed = 0.6; 
+if ((seconds > 74.8  && seconds < 79) || (seconds > 82 && seconds < 86.9)) {
+  targetSpeed = 10;
 }
-currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
-diskAngle += currentSpeed;
+diskSpeed = lerp(diskSpeed, targetSpeed, 0.05);
+diskAngle += diskSpeed;
 
 
 
