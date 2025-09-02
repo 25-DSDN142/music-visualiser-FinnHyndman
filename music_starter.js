@@ -63,8 +63,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     
     myImage = loadImage('diskteaxture.png');
 
-    for (let i = 1; i <= 10; i++){
-    ReelImages.push(loadImage('STATIC9'+i+'.png'));
+    for (let i = 1; i <= 100; i++){
+    ReelImages.push(loadImage('142STATIC/STATIC9'+i+'.png'));
     }
 
     firstRun = false;
@@ -73,8 +73,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-  if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
-  Reel()
+if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+Reel()
 }
 
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
@@ -153,7 +153,7 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
 
 
 function Reel(){
-  if (frameCount % filmSpeed === 10){ // advance every 'filmSpeed' frames
+  if (frameCount % filmSpeed === 1){ // advance every 'filmSpeed' frames
     filmIndex++;
     if (filmIndex >= ReelImages.length){
       filmIndex = 0; // loop back to first image
