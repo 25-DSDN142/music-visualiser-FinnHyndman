@@ -34,6 +34,11 @@ let rectGreen = 255
 let rectBlue = 255
 let rectOpacity = 90
 
+let ellipseRed = 25
+let ellipseGreen = 90
+let ellipseBlue = 255
+let ellipseOpacity = 90
+
 let filmReelImages = [];
 let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancing
@@ -77,13 +82,13 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   diskSetUp();
 
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
-    //circle roate control
+    
+  //circle roate between 45.7 & 75.5
     if (seconds >=45.7 && seconds <= 75.5) { 
     rotating = true;
    } else {
     rotating = false;
     }
-  
 
   push();
   translate(x, y);
@@ -98,12 +103,7 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
     angle += 0.6; // adjust rotate speed
   }}
   
-/*
-if(seconds>0 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-  blueorb()
-}
- */ 
-
+  //chrous circle
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
     chorusCirclePulse()
 }
@@ -112,28 +112,40 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 
   // only updates randoms every 5 frames
-  if (frameCount % 5 === 0) {
+  if (frameCount % 10 === 0) {
     squareX = random(width);
     squareY = random(height);
     squareW = random(width);
     squareH = random(height);
   
-  rectangleflash(squareX, squareY, squareW, squareH, 2);
+  rectangleFlash(squareX, squareY, squareW, squareH, 2);
  }
-
-//travelling ball control
-if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-  travellingBall()
-  }
+}
+ 
+ //flashing ellipse
+ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+  // only updates randoms every 5 frames
+  if (frameCount % 15 === 0) {
+    ellipseX = random(width);
+    ellipseY = random(height);
+    ellipseW = random(width);
+    ellipseH = random(height);
+  
+  ellipseFlash(ellipseX, ellipseY, ellipseW, ellipseH);
+ }
 
 }
 
+//travelling ball control
+/*if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+  travellingBall()
+  }
+  
 /*f ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   filmReel()
 }
   */
   
-
   grainOverlay();
   diskOverlay();
 
@@ -190,7 +202,7 @@ if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
     noStroke();
     ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
   }
-}
+  }
 
   function pulsingCircleDrum(){
     let shapeRatio = drum / 100; 
@@ -208,22 +220,22 @@ if(seconds>0.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   }
 
  let drumScale;
-  if (seconds > 70.8) {
+  if (seconds > 70.8){
     // smaller mapping range
-    drumScale = map(drum, 0, 100, 20, 275); // was 20–300 before
+    drumScale = map(drum, 0, 100, 20, 275); 
   } else {
     drumScale = map(drum, 0, 100, 20, 300);
   }
 
     //circle shift to centre
    if (seconds >= 70.8 && seconds <= 75.5) {
-    let progress = map(seconds, 70.8, 75.5, 0, 1); 
+    let progress = map(seconds, 70.8, 75.5, 0, 1);
     xDrum = lerp(xDrum, targetX, progress);
     yDrum = lerp(yDrum, targetY, progress);
 }
     for (let sizeShape1 = drumScale; sizeShape1 > 0; sizeShape1 -= 5) {
       let fadeShape1 = map(sizeShape1, 0, drumScale, 0, 80); 
-      fill(red, green, blue, fadeShape1);              
+      fill(red, green, blue, fadeShape1);
       noStroke();
       ellipse(xDrum, yDrum, sizeShape1, sizeShape1);
     }
@@ -268,7 +280,7 @@ let bassScale;
     }
   }
 
-function chorusCirclePulse() {
+  function chorusCirclePulse() {
   let shapeRatio = drum / 100; 
     // blue to white 
     red   = lerp(0, 200, shapeRatio);
@@ -339,68 +351,24 @@ function filmReel(){
   image(filmReelImages[filmIndex], 0, 0);
 }
 
-function rectangleflash(squareX, squareY, squareW, squareH, squareCurve){
+function rectangleFlash(squareX, squareY, squareW, squareH, squareCurve){
   noStroke(); 
 
-  fill(rectRed, rectGreen, rectBlue, rectOpacity);
-  rect(squareX, squareY, squareW, squareH, squareCurve);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity);
-  rect(squareX, squareY, squareW+6, squareH+6, squareCurve+3);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity);
-  rect(squareX, squareY, squareW+12, squareH+12, squareCurve+6);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity);
-  rect(squareX, squareY, squareW+18, squareH+18, squareCurve+9);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-5);
-  rect(squareX, squareY, squareW+24, squareH+24, squareCurve+12);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-10);
-  rect(squareX, squareY, squareW+30, squareH+30, squareCurve+15);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-15);
-  rect(squareX, squareY, squareW+36, squareH+36, squareCurve+18);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-20);
-  rect(squareX, squareY, squareW+42, squareH+42, squareCurve+21);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-25);
-  rect(squareX, squareY, squareW+48, squareH+48, squareCurve+24);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-30);
-  rect(squareX, squareY, squareW+54, squareH+54, squareCurve+27);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-40);
-  rect(squareX, squareY, squareW+60, squareH+60, squareCurve+30);
-
-  fill(rectRed, rectGreen, rectBlue, rectOpacity-50);
-  rect(squareX, squareY, squareW+66, squareH+66, squareCurve+33);
+  for (let i = 0; i < 12; i++) {
+  fill(rectRed, rectGreen, rectBlue, rectOpacity - i*5); 
+  rect(squareX, squareY, squareW + i * 6, squareH + i * 6, squareCurve + i * 3);
+  }
 }
 
-/*function blueorb(){
-fill(255,0,0)
-ellipse(startX,startY,50)
-*/
+function ellipseFlash(ellipseX, ellipseY, ellipseW, ellipseH){
+  noStroke(); 
+for (let i = 0; i < 50; i+=5) {
+fill(ellipseRed, ellipseGreen, ellipseBlue, ellipseOpacity - i*5);
+ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
+}
 
 
 
-/*
-   for (let i = 0; i < tailLength; i++) {
-    let alpha = map(i, 0, tailLength, 255, 50); // fade out
-    fill(153, 250, 255, alpha);
-    ellipse(startX - i * spacingX, startY - i * spacingY, tailW, tailH);
-  }
 
-  // move the head diagonally
-  startX += orbSpeed;
-  startY += orbSpeed;
-
-  // reset when off screen
-  if (startX > width + tailW*tailLength || startY > height + tailH*tailLength) {
-    startX = -tailW;
-    startY = -tailH;
-    */
-
+}
 
