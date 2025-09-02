@@ -6,6 +6,8 @@ let x = 320;
 let y = 240;
 let maskRadius = 220; 
 let angle = 0
+let diskAngle = 0
+let currentSpeed = 0.6;
 
 //noise controls
 let grainAmount = 9000
@@ -97,7 +99,7 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
   
   // only move if rotating is true
   if (rotating) {
-    angle += 0.6; // adjust rotate speed
+    angle -= 0.6; // adjust rotate speed
   }}
   
   //chrous circle
@@ -149,15 +151,33 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   
   
   grainOverlay();
+  
+  if(seconds >0.5){
+//roatating disk
+  push();
+  translate(x, y);
+  rotate(diskAngle);
+
   diskOverlay();
 
   textSize(10);
   textStyle(BOLD);
   fill('white');
-  text('Current', 320, 120);
-  text('Affairs', 320, 135);
-  text('Lorde', 150, 190);
-  text('Virgin', 420, 300);
+  text('Current', 0, -120);   
+  text('Affairs', 0, -105);   
+  text('Lorde', -170, -50);
+  text('Virgin', 100, 60); 
+  pop()
+  }
+
+  let targetSpeed = 0.6; 
+if (seconds > 75.8  && seconds < 79) {
+  targetSpeed = 20;
+}
+currentSpeed = lerp(currentSpeed, targetSpeed, 0.05);
+diskAngle += currentSpeed;
+
+
 
 
 function Reel(){
@@ -348,9 +368,9 @@ let bassScale;
   }
 
   function diskOverlay(){
-    image(myImage,0,0);
+    image(myImage,-320,-240);
     fill(0);
-    circle(x, y, 30); 
+    circle(targetX, targetY, 30); 
   }}
 
 function rectangleFlash(squareX, squareY, squareW, squareH, squareCurve){
