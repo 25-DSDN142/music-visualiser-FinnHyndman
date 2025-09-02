@@ -7,7 +7,7 @@ let y = 240;
 let maskRadius = 220; 
 let angle = 0
 
-//noise 
+//noise controls
 let grainAmount = 9000
 
 //pulsing circles start points
@@ -20,7 +20,7 @@ let yDrum = 110
 let targetX = 0; // center point
 let targetY = 0; // center point
 
-//traveling ball
+//traveling ball controls
 let xSpeed = 30 //ball x speed
 let xMove = 320; //start location
 let minSpeed = 10;
@@ -29,6 +29,7 @@ let travelingY = 240; //Y axis
 let scale = 100;
 let glow = 100;
 
+//flashing sqaure controls 
 let rectRed = 255
 let rectGreen = 255
 let rectBlue = 255
@@ -73,7 +74,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
 Reel()
 }
 
@@ -101,24 +102,31 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
   
   //chrous circle
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-    chorusCirclePulse()
+    //chorusCirclePulse()
 }
 
-//flashing rectangle
-if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+//flashing rectangles
+if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (seconds > 165.5 && seconds < 177.9)) {
 
   // only updates randoms every 5 frames
   if (frameCount % 10 === 0) {
-    squareX = random(width);
-    squareY = random(height);
-    squareW = random(width);
-    squareH = random(height);
-  
-  rectangleFlash(squareX, squareY, squareW, squareH, 2);
- }
-}
+    squareX1 = random(width);
+    squareY1 = random(height);
+    squareW1 = random(width);
+    squareH1 = random(height);
+      rectangleFlash(squareX1, squareY1, squareW1, squareH1, 2);
+  }
+    
+    if (frameCount % 15 === 0) {
+    squareX2 = random(width);
+    squareY2 = random(height);
+    squareW2 = random(width);
+    squareH2 = random(height);
+    
+    rectangleFlash(squareX2, squareY2, squareW2, squareH2, 2);
+}}
  
- //flashing ellipse
+ /*//flashing ellipse
  if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   // only updates randoms every 5 frames
   if (frameCount % 15 === 0) {
@@ -162,8 +170,6 @@ function Reel(){
 
   image(ReelImages[filmIndex], 0, 0);
 }
-
-
   
   function diskSetUp(){
     //disk mask
@@ -352,7 +358,7 @@ function rectangleFlash(squareX, squareY, squareW, squareH, squareCurve){
 
   for (let i = 0; i < 12; i++) {
   fill(rectRed, rectGreen, rectBlue, rectOpacity - i*5); 
-  rect(squareX, squareY, squareW + i * 6, squareH + i * 6, squareCurve + i * 3);
+  rect(squareX, squareY, squareW + i * 6, squareH + i * 6, squareCurve + i * 3);    
   }
 }
 
