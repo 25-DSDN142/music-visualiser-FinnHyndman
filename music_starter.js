@@ -39,7 +39,7 @@ let ellipseGreen = 90
 let ellipseBlue = 255
 let ellipseOpacity = 90
 
-let filmReelImages = [];
+let ReelImages = [];
 let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancing
 
@@ -63,23 +63,19 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     
     myImage = loadImage('diskteaxture.png');
 
-    filmReelImages = [
-    loadImage('Film Reel1.png'),
-    loadImage('Film Reel2.png'),
-    loadImage('Film Reel3.png'),
-    loadImage('Film Reel4.png'),
-    loadImage('Film Reel5.png'),
-    loadImage('Film Reel6.png'),
-    loadImage('Film Reel7.png'),
-    loadImage('Film Reel8.png'),
-    loadImage('Film Reel9.png'),
-    ]
+    for (let i = 1; i <= 10; i++){
+    ReelImages.push(loadImage('STATIC9'+i+'.png'));
+    }
 
     firstRun = false;
   }
   let seconds = (counter/60);
 
   diskSetUp();
+
+  if ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
+  Reel()
+}
 
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
     
@@ -137,14 +133,12 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
 }
 
 //travelling ball control
-/*if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
+/*
+if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
   }
-  
-/*f ((seconds > 0.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
-  filmReel()
-}
   */
+  
   
   grainOverlay();
   diskOverlay();
@@ -156,6 +150,19 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)) {
   text('Affairs', 320, 135);
   text('Lorde', 150, 190);
   text('Virgin', 420, 300);
+
+
+function Reel(){
+  if (frameCount % filmSpeed === 10){ // advance every 'filmSpeed' frames
+    filmIndex++;
+    if (filmIndex >= ReelImages.length){
+      filmIndex = 0; // loop back to first image
+    }
+  }
+
+  image(ReelImages[filmIndex], 0, 0);
+}
+
 
   
   function diskSetUp(){
@@ -340,17 +347,6 @@ let bassScale;
     circle(x, y, 30); 
   }}
 
-function filmReel(){
-  if (filmReelImages.length === 0) return;
-
-  // change image every `filmSpeed` frames
-  if (frameCount % filmSpeed === 0) {
-    filmIndex = (filmIndex + 1) % filmReelImages.length;
-  }
-
-  image(filmReelImages[filmIndex], 0, 0);
-}
-
 function rectangleFlash(squareX, squareY, squareW, squareH, squareCurve){
   noStroke(); 
 
@@ -366,9 +362,6 @@ for (let i = 0; i < 50; i+=5) {
 fill(ellipseRed, ellipseGreen, ellipseBlue, ellipseOpacity - i*5);
 ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 }
-
-
-
 
 }
 
