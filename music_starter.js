@@ -49,11 +49,11 @@ let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancings
 
 // simple roaming circles using your existing canvas
-let roamX = [50, 150, 300]; // starting X positions
-let roamY = [50, 200, 100]; // starting Y positions
+let roamX = [320, 510.53, 129.47]; // starting X positions
+let roamY = [20, 350, 350]; // starting Y positions
 let roamVX = [2, -1.5, 1];  // X velocities
 let roamVY = [1, 2, -2];    // Y velocities
-let roamSize = [50, 90, 85]; // circle sizes
+let roamSize = [50, 90, 80]; // circle sizes
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -77,7 +77,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
+if(seconds > 45.7){
 roamingCircles()
+}
 
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
 Reel()
@@ -103,7 +105,7 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9)))
   // only move if rotating is true
   if (rotating) {
     angle -= 0.6; // adjust rotate speed
-  }}
+}}
   
   //chrous circle
 if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
@@ -120,7 +122,7 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (sec
     squareW1 = random(width);
     squareH1 = random(height);
       rectangleFlash(squareX1, squareY1, squareW1, squareH1, 2);
-  }
+}
     
     if (frameCount % 15 === 0) {
     squareX2 = random(width);
