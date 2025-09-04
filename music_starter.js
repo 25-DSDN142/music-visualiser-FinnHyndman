@@ -46,15 +46,14 @@ let ellipseOpacity = 90
 
 let ReelImages = [];
 let filmIndex = 0;     // frame we're on
-let filmSpeed = 2;     // how many draw frames before advancing
+let filmSpeed = 2;     // how many draw frames before advancings
 
-
-let tailLength = 40;   // how many ellipses in the tail
-let spacingX = 3;     // horizontal spacing between ellipses
-let spacingY = 3;     // vertical spacing between ellipses
-let tailW = 15;       // width of each tail ellipse
-let tailH = 15;       // height of each tail ellipse
-
+// simple roaming circles using your existing canvas
+let roamX = [50, 150, 300]; // starting X positions
+let roamY = [50, 200, 100]; // starting Y positions
+let roamVX = [2, -1.5, 1];  // X velocities
+let roamVY = [1, 2, -2];    // Y velocities
+let roamSize = [50, 90, 85]; // circle sizes
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -77,6 +76,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let seconds = (counter/60);
 
   diskSetUp();
+
+roamingCircles()
 
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
 Reel()
@@ -150,8 +151,8 @@ if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
   travellingBall()
   }
   */
-  
-  
+
+
   grainOverlay();
 
   //roatating disk
@@ -390,3 +391,19 @@ ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 
 }
 
+function roamingCircles() {
+  for (let i = 0; i < roamX.length; i++) {
+    // update positions
+    roamX[i] += roamVX[i];
+    roamY[i] += roamVY[i];
+
+    // bounce off edges of canvas
+    if (roamX[i] < 0 || roamX[i] > width) roamVX[i] *= -1;
+    if (roamY[i] < 0 || roamY[i] > height) roamVY[i] *= -1;
+
+    // draw the circle
+    fill(40, 100, 255, 180);
+    noStroke();
+    ellipse(roamX[i], roamY[i], roamSize[i]);
+  }
+}
