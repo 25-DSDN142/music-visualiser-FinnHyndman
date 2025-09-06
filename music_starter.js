@@ -48,12 +48,16 @@ let ReelImages = [];
 let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancings
 
-// simple roaming circles using your existing canvas
+
+// for refference vvvv
 let roamX = [320, 510.53, 129.47]; // starting X positions
 let roamY = [20, 350, 350]; // starting Y positions
-let roamVX = [2, -1.5, 1];  // X velocities
-let roamVY = [1, 2, -2];    // Y velocities
-let roamSize = [50, 90, 80]; // circle sizes
+
+let circleX = 320;       // X position
+let circleY = 20;        // Y position
+let circleVelocityX = 2; // horizontal speed
+let circleVelocityY = 1; // vertical speed
+let circleDiameter = 50; // size of the circle
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -77,7 +81,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-if(seconds > 45.7){
+if(seconds > 0.7){
 roamingCircles()
 }
 
@@ -394,18 +398,19 @@ ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 }
 
 function roamingCircles() {
-  for (let i = 0; i < roamX.length; i++) {
-    // update positions
-    roamX[i] += roamVX[i];
-    roamY[i] += roamVY[i];
+  
+  circleX = circleX + circleVelocityX;
+  circleY = circleY + circleVelocityY;
 
-    // bounce off edges of canvas
-    if (roamX[i] < 0 || roamX[i] > width) roamVX[i] *= -1;
-    if (roamY[i] < 0 || roamY[i] > height) roamVY[i] *= -1;
-
-    // draw the circle
-    fill(40, 100, 255, 180);
-    noStroke();
-    ellipse(roamX[i], roamY[i], roamSize[i]);
+  // Bounce off edges
+  if (circleX < 0 || circleX > 640) {
+    circleVelocityX = -circleVelocityX;
   }
-}
+  if (circleY < 0 || circleY > 480) {
+    circleVelocityY = -circleVelocityY;
+  }
+
+  fill(40, 100, 255, 180);
+  noStroke();              
+  ellipse(circleX, circleY, circleDiameter);
+  }
