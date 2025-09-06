@@ -50,24 +50,45 @@ let filmSpeed = 2;     // how many draw frames before advancings
 
 //roaming circle 1
 let circleX1 = 320;
-let circleY1 = 20
-let circleVelocityX1 = 2
-let circleVelocityY1 = 1
+let circleY1 = 240
+let circleVelocityX1 = -2
+let circleVelocityY1 = -2
 let circleDiameter1
 
 //roaming circle 2
-let circleX2 = 510.53
-let circleY2 = 350
-let circleVelocityX2 = -2
-let circleVelocityY2 = 1
+let circleX2 = 320
+let circleY2 = 240
+let circleVelocityX2 = -3
+let circleVelocityY2 = 2
 let circleDiameter2
 
-//roaming circle 2
-let circleX3 = 129.47
-let circleY3 = 350
-let circleVelocityX3 = 2
-let circleVelocityY3 = -2
+//roaming circle 3
+let circleX3 = 320
+let circleY3 = 240
+let circleVelocityX3 = 3
+let circleVelocityY3 = -3
 let circleDiameter3
+
+//roaming circle 4
+let circleX4 = 1
+let circleY4 = 1
+let circleVelocityX4 = -3
+let circleVelocityY4 = -3
+let circleDiameter4
+
+//roaming circle 5
+let circleX5 = 639
+let circleY5 = 1
+let circleVelocityX5 = 3
+let circleVelocityY5 = 3
+let circleDiameter5
+
+//roaming circle 6
+let circleX6 = 1
+let circleY6 = 479
+let circleVelocityX6 = 3
+let circleVelocityY6 = -3
+let circleDiameter6
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -87,21 +108,25 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
     firstRun = false;
   }
-  let seconds = (counter/60);
 
-  diskSetUp();
+let seconds = (counter/60);
 
-if(seconds > 5.7){
-roamingCircle1(vocal)
-roamingCircle2(bass)
-roamingCircle3(drum)
+diskSetUp();
+
+if(seconds > 86.9){
+roamingCircle1(vocal,seconds)
+roamingCircle2(bass,seconds)
+roamingCircle3(drum,seconds)
+roamingCircle4(drum,seconds)
+roamingCircle5(drum,seconds)
+roamingCircle6(drum,seconds)
 }
 
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
 Reel()
 }
 
-if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 86.9))) {
+if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83))) {
     
   //circle roate between 45.7 & 75.5
     if (seconds >=45.7 && seconds <= 75.5) { 
@@ -409,9 +434,9 @@ ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 
 }
 
-function roamingCircle1(vocal) {
+function roamingCircle1(vocal,seconds) {
    
-circleDiameter = map(vocal, 0, 100, 50, 100);
+circleDiameter = map(vocal, 0, 100, 50, 200);
 colorRatio = map(vocal, 0, 100, 0, 1);
 
     
@@ -419,10 +444,10 @@ red   = lerp(0, 200, colorRatio);
 green = lerp(190, 240, colorRatio);
 blue  = lerp(255, 255, colorRatio);
   
-
+if(seconds > 91.8){
   circleX1 = circleX1 + circleVelocityX1;
   circleY1 = circleY1 + circleVelocityY1;
-
+}
   // Bounce off edges
   if (circleX1 < 0 || circleX1 > 640) {
     circleVelocityX1 = -circleVelocityX1;
@@ -439,17 +464,19 @@ for (let i = 0; i <= 20; i += 5) {
 }
   }
 
-function roamingCircle2(bass) {
+function roamingCircle2(bass,seconds) {
 
 circleDiameter = map(bass, 0, 100, 50, 100);
 colorRatio = map(bass, 0, 100, 0, 1);
 
 red = lerp(0, 0, colorRatio);
-green = lerp(200, 120, colorRatio);
-blue = lerp(255, 220, colorRatio);
+green = lerp(200, 50, colorRatio);
+blue = lerp(255, 150, colorRatio);
 
+if(seconds > 91.32){
 circleX2 = circleX2 + circleVelocityX2;
 circleY2 = circleY2 + circleVelocityY2;
+}
 
 // Bounce off edges
 if (circleX2 < 0 || circleX2 > 640) {
@@ -466,7 +493,7 @@ noStroke();
 }
 }
 
-function roamingCircle3(drum) {
+function roamingCircle3(drum,seconds) {
 
 circleDiameter = map(drum, 0, 100, 50, 100);
 colorRatio = map(drum, 0, 100, 0, 1);
@@ -475,8 +502,10 @@ red = lerp(0, 0, colorRatio);
 green = lerp(200, 120, colorRatio);
 blue = lerp(255, 220, colorRatio);
 
+if(seconds > 90.8){
 circleX3 = circleX3 + circleVelocityX3;
 circleY3 = circleY3 + circleVelocityY3;
+}
 
 // Bounce off edges
 if (circleX3 < 0 || circleX3 > 640) {
@@ -492,4 +521,92 @@ noStroke();
 for (let i = 0; i <= 20; i += 5) {
   ellipse(circleX3, circleY3, circleDiameter - i);
 }
+}
+
+function roamingCircle4(bass,seconds) {
+
+circleDiameter = map(bass, 0, 100, 50, 120);
+colorRatio = map(bass, 0, 100, 0, 1);
+
+red = lerp(0, 0, colorRatio);
+green = lerp(200, 120, colorRatio);
+blue = lerp(255, 220, colorRatio);
+
+if(seconds > 92){
+circleX4 = circleX4 + circleVelocityX4;
+circleY4 = circleY4 + circleVelocityY4;
+}
+
+// Bounce off edges
+if (circleX4 < 0 || circleX4 > 640) {
+  circleVelocityX4 = -circleVelocityX4;
+}
+if (circleY3 < 0 || circleY3 > 480) {
+  circleVelocityY4 = -circleVelocityY4;
+}
+
+fill(red, green, blue, 100);
+noStroke();  
+
+for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX4, circleY4, circleDiameter - i);
+}
+}
+
+function roamingCircle5(drum,seconds) {
+
+circleDiameter = map(drum, 0, 100, 60, 110);
+colorRatio = map(drum, 0, 100, 0, 1);
+
+red = lerp(0, 0, colorRatio);
+green = lerp(200, 50, colorRatio);
+blue = lerp(255, 150, colorRatio);
+
+if(seconds > 92){
+circleX5 = circleX5 + circleVelocityX5;
+circleY5 = circleY5 + circleVelocityY5;
+}
+
+// Bounce off edges
+if (circleX5 < 0 || circleX5 > 640) {
+  circleVelocityX5 = -circleVelocityX5;
+}
+if (circleY5 < 0 || circleY5 > 480) {
+  circleVelocityY5 = -circleVelocityY5;
+}
+
+fill(red, green, blue, 100);
+noStroke();  
+
+for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX5, circleY5, circleDiameter - i);
+}
+}
+
+function roamingCircle6(vocal,seconds) {
+circleDiameter = map(vocal, 0, 100, 50, 240);
+colorRatio = map(vocal, 0, 100, 0, 1);
+    
+red   = lerp(0, 200, colorRatio);
+green = lerp(190, 240, colorRatio);
+blue  = lerp(255, 255, colorRatio);
+  
+if(seconds > 91.8){
+  circleX6 = circleX6 + circleVelocityX6;
+  circleY6 = circleY6 + circleVelocityY6;
+}
+  // Bounce off edges
+  if (circleX6 < 0 || circleX6 > 640) {
+    circleVelocityX6 = -circleVelocityX6;
   }
+  if (circleY6 < 0 || circleY6 > 480) {
+    circleVelocityY6 = -circleVelocityY6;
+  }
+
+  fill(red, green, blue, 100);
+  noStroke();   
+
+for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX6, circleY6, circleDiameter - i);
+}
+}
