@@ -113,7 +113,7 @@ let seconds = (counter/60);
 
 diskSetUp();
 
-if(seconds > 86.9){
+if(seconds > 86.9 && seconds > 150 ){
 roamingCircle1(vocal,seconds)
 roamingCircle2(bass,seconds)
 roamingCircle3(drum,seconds)
@@ -436,7 +436,7 @@ ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 
 function roamingCircle1(vocal,seconds) {
    
-circleDiameter = map(vocal, 0, 100, 50, 200);
+circleDiameter = map(vocal, 0, 100, 50, 270);
 colorRatio = map(vocal, 0, 100, 0, 1);
 
 //base colour blue
@@ -445,25 +445,25 @@ colorRatio = map(vocal, 0, 100, 0, 1);
   let baseB = lerp(255, 255, colorRatio);
 
   //fire pulse colour
-  let orangeR = lerp(255, 255, colorRatio);
-  let orangeG = lerp(140, 180, colorRatio);
-  let orangeB = lerp(0, 50, colorRatio);
+let orangeR = lerp(140, 200, colorRatio);  // deep red-orange
+let orangeG = lerp(40, 80, colorRatio);    // dark earthy greens
+let orangeB = lerp(0, 10, colorRatio);     // nearly no blue
 
 
   let transitionAmount = 0;
 
   // start transition
-  if (seconds >= 120 && seconds <= 120.5) {
-    transitionAmount = map(seconds, 120, 120.5, 0, 1);
+  if (seconds >= 121 && seconds <= 121.5) {
+    transitionAmount = map(seconds, 121, 121.5, 0, 1);
   }
 
   //full orange
-  else if (seconds > 120.5 && seconds <= 121.5) {
+  else if (seconds > 121.5 && seconds <= 122.5) {
     transitionAmount = 1;
   }
 //back to blue
-  else if (seconds > 121.5 && seconds <= 122) {
-    transitionAmount = map(seconds, 121.5, 122, 1, 0);
+  else if (seconds > 122.5 && seconds <= 123) {
+    transitionAmount = map(seconds, 122.5, 123, 1, 0);
   }
 
   //final colour lerp. lerp blue pulse to orange pulse.
@@ -497,14 +497,15 @@ circleDiameter = map(bass, 0, 100, 50, 80);
 colorRatio = map(bass, 0, 100, 0, 1);
 
 //base colour blue
-  let baseR = lerp(0, 0, colorRatio);
-  let baseG = lerp(200, 50, colorRatio);
-  let baseB = lerp(255, 150, colorRatio);
+let baseR = lerp(0, 0, colorRatio);
+let baseG = lerp(200, 50, colorRatio);
+let baseB = lerp(255, 150, colorRatio);
 
-  //fire pulse colour
-  let orangeR = lerp(255, 255, colorRatio);
-  let orangeG = lerp(140, 180, colorRatio);
-  let orangeB = lerp(0, 50, colorRatio);
+//fire pulse colour
+let orangeR = lerp(220, 250, colorRatio); 
+let orangeG = lerp(170, 230, colorRatio); 
+let orangeB = lerp(60, 90, colorRatio);   
+
 
 
   let transitionAmount = 0;
@@ -554,14 +555,14 @@ circleDiameter = map(drum, 0, 100, 50, 100);
 colorRatio = map(drum, 0, 100, 0, 1);
 
 //base colour blue
-let baseR = lerp(0, 0, colorRatio);
-let baseG = lerp(200, 120, colorRatio);
-let baseB = lerp(255, 220, colorRatio);
+let baseR = lerp(0, 0, colorRatio)
+let baseG = lerp(200, 120, colorRatio)
+let baseB = lerp(255, 220, colorRatio)
 
   //fire pulse colour
-let orangeR = lerp(255, 255, colorRatio);
-let orangeG = lerp(140, 180, colorRatio);
-let orangeB = lerp(0, 50, colorRatio);
+let orangeR = lerp(255, 255, colorRatio)
+let orangeG = lerp(150, 220, colorRatio)
+let orangeB = lerp(30, 60, colorRatio)
 
 
 let transitionAmount = 0;
@@ -581,9 +582,9 @@ let transitionAmount = 0;
   }
 
   //final colour lerp. lerp blue pulse to orange pulse.
-  let red = lerp(baseR, orangeR, transitionAmount);
-  let green = lerp(baseG, orangeG, transitionAmount);
-  let blue = lerp(baseB, orangeB, transitionAmount);
+  let red = lerp(baseR, orangeR, transitionAmount)
+  let green = lerp(baseG, orangeG, transitionAmount)
+  let blue = lerp(baseB, orangeB, transitionAmount)
 
 if(seconds > 90.8){
 circleX3 = circleX3 + circleVelocityX3;
@@ -612,14 +613,14 @@ circleDiameter = map(bass, 0, 100, 50, 170);
 colorRatio = map(bass, 0, 100, 0, 1);
 
 //base colour blue
-  let baseR = lerp(0, 80, colorRatio);
-  let baseG = lerp(100, 200, colorRatio);
-  let baseB = lerp(255, 255, colorRatio);
+let baseR = lerp(0, 80, colorRatio)
+let baseG = lerp(100, 200, colorRatio)
+let baseB = lerp(255, 255, colorRatio)
 
-  //fire pulse colour
-  let orangeR = lerp(255, 255, colorRatio);
-  let orangeG = lerp(140, 180, colorRatio);
-  let orangeB = lerp(0, 50, colorRatio);
+//fire pulse colour
+let orangeR = lerp(240, 255, colorRatio); // strong yellow-red base
+let orangeG = lerp(190, 220, colorRatio); // bright yellow warmth
+let orangeB = lerp(20, 40, colorRatio);   // just enough depth
 
 
   let transitionAmount = 0;
@@ -675,9 +676,9 @@ colorRatio = map(drum, 0, 100, 0, 1);
   let baseB = lerp(120, 255, colorRatio);
 
   //fire pulse colour
-  let orangeR = lerp(255, 255, colorRatio);
-  let orangeG = lerp(140, 180, colorRatio);
-  let orangeB = lerp(0, 50, colorRatio);
+  let orangeR = lerp(180, 255, colorRatio);  // strong fiery red
+let orangeG = lerp(70, 100, colorRatio);   // warm but dark
+let orangeB = lerp(0, 15, colorRatio);     // very dark
 
 
   let transitionAmount = 0;
@@ -727,14 +728,14 @@ function roamingCircle6(vocal, seconds) {
   colorRatio = map(vocal, 0, 100, 0, 1);
 
 //base colour blue
-  let baseR = lerp(180, 200, colorRatio);
-  let baseG = lerp(210, 240, colorRatio);
-  let baseB = lerp(255, 255, colorRatio);
+let baseR = lerp(180, 200, colorRatio)
+let baseG = lerp(210, 240, colorRatio)
+let baseB = lerp(255, 255, colorRatio)
 
-  //fire pulse colour
-  let orangeR = lerp(255, 255, colorRatio);
-  let orangeG = lerp(140, 180, colorRatio);
-  let orangeB = lerp(0, 50, colorRatio);
+//fire pulse colour
+let orangeR = lerp(255, 255, colorRatio)
+let orangeG = lerp(100, 180, colorRatio)
+let orangeB = lerp(0, 40, colorRatio)
 
 
   let transitionAmount = 0;
