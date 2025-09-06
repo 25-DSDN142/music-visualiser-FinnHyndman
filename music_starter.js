@@ -21,17 +21,17 @@ let xBass = 190.53
 let yBass = 110
 let xDrum = -190.53
 let yDrum = 110
-let targetX = 0; // center point
-let targetY = 0; // center point
+let targetX = 0 // center point
+let targetY = 0 // center point
 
 //traveling ball controls
 let xSpeed = 30 //ball x speed
-let xMove = 320; //start location
-let minSpeed = 10;
-let maxSpeed = 35;
+let xMove = 320 //start location
+let minSpeed = 10
+let maxSpeed = 35
 let travelingY = 240; //Y axis
-let scale = 100;
-let glow = 100;
+let scale = 100
+let glow = 100
 
 //flashing sqaure controls 
 let rectRed = 255
@@ -48,16 +48,26 @@ let ReelImages = [];
 let filmIndex = 0;     // frame we're on
 let filmSpeed = 2;     // how many draw frames before advancings
 
+//roaming circle 1
+let circleX1 = 320;
+let circleY1 = 20
+let circleVelocityX1 = 2
+let circleVelocityY1 = 1
+let circleDiameter1
 
-// for refference vvvv
-let roamX = [320, 510.53, 129.47]; // starting X positions
-let roamY = [20, 350, 350]; // starting Y positions
+//roaming circle 2
+let circleX2 = 510.53
+let circleY2 = 350
+let circleVelocityX2 = -2
+let circleVelocityY2 = 1
+let circleDiameter2
 
-let circleX = 320;       // X position
-let circleY = 20;        // Y position
-let circleVelocityX = 2; // horizontal speed
-let circleVelocityY = 1; // vertical speed
-let circleDiameter = 50; // size of the circle
+//roaming circle 2
+let circleX3 = 129.47
+let circleY3 = 350
+let circleVelocityX3 = 2
+let circleVelocityY3 = -2
+let circleDiameter3
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -81,8 +91,10 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   diskSetUp();
 
-if(seconds > 0.7){
-roamingCircles()
+if(seconds > 5.7){
+roamingCircle1(vocal)
+roamingCircle2(bass)
+roamingCircle3(drum)
 }
 
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
@@ -397,20 +409,87 @@ ellipse(ellipseX, ellipseY, ellipseW+i, ellipseH+i);
 
 }
 
-function roamingCircles() {
+function roamingCircle1(vocal) {
+   
+circleDiameter = map(vocal, 0, 100, 50, 100);
+colorRatio = map(vocal, 0, 100, 0, 1);
+
+    
+red   = lerp(0, 200, colorRatio);
+green = lerp(190, 240, colorRatio);
+blue  = lerp(255, 255, colorRatio);
   
-  circleX = circleX + circleVelocityX;
-  circleY = circleY + circleVelocityY;
+
+  circleX1 = circleX1 + circleVelocityX1;
+  circleY1 = circleY1 + circleVelocityY1;
 
   // Bounce off edges
-  if (circleX < 0 || circleX > 640) {
-    circleVelocityX = -circleVelocityX;
+  if (circleX1 < 0 || circleX1 > 640) {
+    circleVelocityX1 = -circleVelocityX1;
   }
-  if (circleY < 0 || circleY > 480) {
-    circleVelocityY = -circleVelocityY;
+  if (circleY1 < 0 || circleY1 > 480) {
+    circleVelocityY1 = -circleVelocityY1;
   }
 
-  fill(40, 100, 255, 180);
-  noStroke();              
-  ellipse(circleX, circleY, circleDiameter);
+  fill(red, green, blue, 100);
+  noStroke();   
+
+for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX1, circleY1, circleDiameter - i);
+}
+  }
+
+function roamingCircle2(bass) {
+
+circleDiameter = map(bass, 0, 100, 50, 100);
+colorRatio = map(bass, 0, 100, 0, 1);
+
+red = lerp(0, 0, colorRatio);
+green = lerp(200, 120, colorRatio);
+blue = lerp(255, 220, colorRatio);
+
+circleX2 = circleX2 + circleVelocityX2;
+circleY2 = circleY2 + circleVelocityY2;
+
+// Bounce off edges
+if (circleX2 < 0 || circleX2 > 640) {
+  circleVelocityX2 = -circleVelocityX2;
+}
+if (circleY2 < 0 || circleY2 > 480) {
+    circleVelocityY2 = -circleVelocityY2;
+}
+
+fill(red, green, blue, 100);
+noStroke();              
+ for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX2, circleY2, circleDiameter - i);
+}
+}
+
+function roamingCircle3(drum) {
+
+circleDiameter = map(drum, 0, 100, 50, 100);
+colorRatio = map(drum, 0, 100, 0, 1);
+
+red = lerp(0, 0, colorRatio);
+green = lerp(200, 120, colorRatio);
+blue = lerp(255, 220, colorRatio);
+
+circleX3 = circleX3 + circleVelocityX3;
+circleY3 = circleY3 + circleVelocityY3;
+
+// Bounce off edges
+if (circleX3 < 0 || circleX3 > 640) {
+  circleVelocityX3 = -circleVelocityX3;
+}
+if (circleY3 < 0 || circleY3 > 480) {
+  circleVelocityY3 = -circleVelocityY3;
+}
+
+fill(red, green, blue, 100);
+noStroke();  
+
+for (let i = 0; i <= 20; i += 5) {
+  ellipse(circleX3, circleY3, circleDiameter - i);
+}
   }
