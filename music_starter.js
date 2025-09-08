@@ -466,7 +466,7 @@ else if (seconds >= 140.6 && seconds <= 141.0) {
   let green = lerp(baseG, orangeG, transitionAmount);
   let blue = lerp(baseB, orangeB, transitionAmount);
   
-  //lock circle to at 155 seconds
+  //lock circle to at 150 seconds
  if (seconds > 150){
   circleVelocityX1 =0
   circleVelocityY1 =0
