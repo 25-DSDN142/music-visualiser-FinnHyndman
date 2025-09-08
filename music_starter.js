@@ -52,7 +52,7 @@ let filmSpeed = 2;     // how many draw frames before advancings
 let circleX1 = 320;
 let circleY1 = 240
 let circleVelocityX1 = -2
-let circleVelocityY1 = -2
+let circleVelocityY1 = 0.3
 let circleDiameter1
 
 //roaming circle 2
@@ -65,7 +65,7 @@ let circleDiameter2
 //roaming circle 3
 let circleX3 = 320
 let circleY3 = 240
-let circleVelocityX3 = 3
+let circleVelocityX3 = 0.3
 let circleVelocityY3 = -3
 let circleDiameter3
 
@@ -136,16 +136,15 @@ diskSetUp();
 
 let circleFader 
 
-if(seconds>=145){
-  cirlceFader = map(seconds,145,151,100,0)
+if(seconds>=150){
+  cirlceFader = map(seconds,150,155,100,0)
 }
-else if (seconds <145){
+else if (seconds <150){
   cirlceFader = 100
 }
 
-
-if(seconds > 86.9 && seconds < 150.8){
-roamingCircle4(bass,seconds,circleFader)
+if(seconds > 86.9 && seconds < 156){
+roamingCircle4(bass,seconds,cirlceFader)
 roamingCircle5(drum,seconds,cirlceFader)
 roamingCircle6(bass,seconds,cirlceFader)
 roamingCircle7(drum,seconds,cirlceFader)
@@ -437,8 +436,8 @@ let orangeB = lerp(0, 5, colorRatio);
   }
 
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -472,10 +471,10 @@ if(seconds > 91.8){
   circleY1 = circleY1 + circleVelocityY1;
 }
   // Bounce off edges
-  if (circleX1 < 100 || circleX1 > 540) {
+  if (circleX1 < 160 || circleX1 > 480) {
     circleVelocityX1 = -circleVelocityX1;
   }
-  if (circleY1 < 20 || circleY1 > 460) {
+  if (circleY1 < 80 || circleY1 > 400) {
     circleVelocityY1 = -circleVelocityY1;
   }
 
@@ -534,8 +533,8 @@ let orangeB = lerp(60, 90, colorRatio);
   }
 
   //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -629,8 +628,8 @@ let transitionAmount = 0;
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -682,7 +681,8 @@ for (let i = 0; i <= 20; i += 5) {
 
 function roamingCircle4(bass,seconds,circleFader) {
 
-circleDiameter = map(bass, 0, 100, 50, 170);
+
+circleDiameter = map(bass, 0, 100, 50, 190);
 colorRatio = map(bass, 0, 100, 0, 1);
 
 //base colour blue
@@ -695,8 +695,7 @@ let orangeR = lerp(240, 255, colorRatio)
 let orangeG = lerp(190, 220, colorRatio)
 let orangeB = lerp(20, 40, colorRatio)
 
-
-  let transitionAmount = 0;
+let transitionAmount = 0;
 
  // //pulse 1
   if (seconds >= 121 && seconds <= 121.4) {
@@ -725,8 +724,8 @@ let orangeB = lerp(20, 40, colorRatio)
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -742,7 +741,7 @@ let orangeB = lerp(20, 40, colorRatio)
   transitionAmount = map(seconds, 130.5, 130.8, 1, 0); // Fade out
 }
 //pulse 6
-  else if (seconds >= 140.6 && seconds <= 141.0) {
+else if (seconds >= 140.6 && seconds <= 141.0) {
   transitionAmount = map(seconds, 140.6, 141.0, 0, 1); // Fade in
 } else if (seconds > 141.0 && seconds <= 141.5) {
   transitionAmount = 1; // Full orange hold
@@ -771,7 +770,6 @@ if (circleY4 < 0 || circleY4 > 480) {
 
 fill(red, green, blue, circleFader);
 noStroke();  
-
 for (let i = 0; i <= 20; i += 5) {
   ellipse(circleX4, circleY4, circleDiameter - i);
 }
@@ -823,8 +821,8 @@ let transitionAmount = 0;
   }
 
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -876,7 +874,7 @@ for (let i = 0; i <= 20; i += 5) {
 }
 
 function roamingCircle6(bass, seconds,circleFader) {
-  circleDiameter = map(bass, 0, 100, 40, 240);
+  circleDiameter = map(bass, 0, 100, 40, 220);
   colorRatio = map(bass, 0, 100, 0, 1);
 
   // Base colour
@@ -911,17 +909,9 @@ let baseB = lerp(180, 230, colorRatio);
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
   
-//pulse 3
-   else if (seconds >= 124.7 && seconds <= 125.2) {
-    transitionAmount = map(seconds, 124.7, 125.2, 0, 1); // Fade in
-  } else if (seconds > 125.2 && seconds <= 125.8) {
-    transitionAmount = 1; //full orange
-  } else if (seconds > 125.8 && seconds <= 126.32) {
-    transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
-  }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -1005,17 +995,9 @@ let orangeB = lerp(0, 20, colorRatio);
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
   
-//pulse 3
-   else if (seconds >= 124.7 && seconds <= 125.2) {
-    transitionAmount = map(seconds, 124.7, 125.2, 0, 1); // Fade in
-  } else if (seconds > 125.2 && seconds <= 125.8) {
-    transitionAmount = 1; //full orange
-  } else if (seconds > 125.8 && seconds <= 126.32) {
-    transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
-  }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -1107,8 +1089,8 @@ let orangeB = lerp(30, 60, colorRatio);
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
@@ -1199,8 +1181,8 @@ let transitionAmount = 0;
     transitionAmount = map(seconds, 125.8, 126.32, 1, 0); // Fade out
   }
 //pulse 4
-  else if (seconds >= 132.4 && seconds <= 133.0) {
-  transitionAmount = map(seconds, 132.4, 133.0, 0, 1); // Fade in (0.6s)
+  else if (seconds >= 131.4 && seconds <= 133.0) {
+  transitionAmount = map(seconds, 131.4, 133.0, 0, 1); // Fade in (0.6s)
 } else if (seconds > 133.0 && seconds <= 137.2) {
   transitionAmount = 1; // Full orange hold (4.2s)
 } else if (seconds > 137.2 && seconds <= 137.8) {
