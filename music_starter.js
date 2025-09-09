@@ -253,10 +253,10 @@ let blueR = lerp(0, 200, shapeRatio);
 let blueG = lerp(190, 240, shapeRatio);
 let blueB = lerp(255, 255, shapeRatio);
 
-  //red to red
-let RedR = 145
-let RedG = 10
-let RedB = 0
+//red to red
+let RedR = lerp(255, 145, shapeRatio);
+let RedG = lerp(0, 10, shapeRatio);
+let RedB = lerp(0, 0, shapeRatio);
 
 let transitionAmount =0
 
@@ -268,13 +268,13 @@ green = OrangeG
 blue = OrangeB
 }
 //red pulse
-else if(seconds >=26 && seconds <= 28.5){
+else if(seconds >=26 && seconds <= 29){
   if (seconds >= 26.5 && seconds <= 27) {
   transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
 } else if (seconds > 27 && seconds <= 27.5) {
   transitionAmount = 1; // Full red hold
-} else if (seconds > 27.5 && seconds <= 28) {
-  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
+} else if (seconds > 27.5 && seconds <= 28.5) {
+  transitionAmount = map(seconds, 27.5, 28.5, 1, 0); // Fade out
 }
 //smooth transition between red and orange
 red = lerp(OrangeR, RedR, transitionAmount);
@@ -318,28 +318,28 @@ let blueR = lerp(0, 0, shapeRatio);
 let blueG = lerp(200, 50, shapeRatio);
 let blueB = lerp(255, 150, shapeRatio);
 
-let RedR = 145
-let RedG = 10
-let RedB = 0
+let RedR = lerp(255, 145, shapeRatio);
+let RedG = lerp(0, 10, shapeRatio);
+let RedB = lerp(0, 0, shapeRatio);
 
 let transitionAmount =0
 
 //control colour pluse for 'blood'
-if (seconds < 26.5 || seconds > 28.5 && seconds<45.7 ) {
+if (seconds < 26.5 || seconds > 29 && seconds<45.7 ) {
 //orange for most of intro
 red = OrangeR
 green = OrangeG
 blue = OrangeB
 }
 //red pulse
-else if(seconds >=26 && seconds <= 28.5){
-  if (seconds >= 26.5 && seconds <= 27) {
-  transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
-} else if (seconds > 27 && seconds <= 27.5) {
-  transitionAmount = 1; // Full red hold
-} else if (seconds > 27.5 && seconds <= 28) {
-  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
-}
+else if (seconds >= 26 && seconds <= 29) {
+  if (seconds >= 26.8 && seconds <= 27.3) {
+    transitionAmount = map(seconds, 26.8, 27.3, 0, 1); // Fade in
+  } else if (seconds > 27.3 && seconds <= 27.8) {
+    transitionAmount = 1; // Full red hold
+  } else if (seconds > 27.8 && seconds <= 28.8) {
+    transitionAmount = map(seconds, 27.8, 28.8, 1, 0); // Fade out
+  }
 //smooth transition between red and orange
 red = lerp(OrangeR, RedR, transitionAmount);
 green = lerp(OrangeG, RedG, transitionAmount);
@@ -385,27 +385,27 @@ let blueR = lerp(0, 0, shapeRatio);
 let blueG = lerp(200, 120, shapeRatio);
 let blueB = lerp(255, 220, shapeRatio);
 
-let RedR = 145
-let RedG = 10
-let RedB = 0
+let RedR = lerp(255, 145, shapeRatio);
+let RedG = lerp(0, 10, shapeRatio);
+let RedB = lerp(0, 0, shapeRatio);
 
 let transitionAmount =0
 
 //control colour pluse for 'blood'
-if (seconds < 26.5 || seconds > 28.5 && seconds<45.7 ) {
+if (seconds < 26.5 || seconds > 30 && seconds<45.7 ) {
 //orange for most of intro
 red = OrangeR
 green = OrangeG
 blue = OrangeB
 }
 //red pulse
-else if(seconds >=26 && seconds <= 28.5){
-  if (seconds >= 26.5 && seconds <= 27) {
-  transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
-} else if (seconds > 27 && seconds <= 27.5) {
+else if(seconds >=26 && seconds <= 30){
+  if (seconds >= 27.1 && seconds <= 27.6) {
+  transitionAmount = map(seconds, 27.1, 27.6, 0, 1); // Fade in
+} else if (seconds > 27.6 && seconds <= 28.1) {
   transitionAmount = 1; // Full red hold
-} else if (seconds > 27.5 && seconds <= 28) {
-  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
+} else if (seconds > 28.1 && seconds <= 29.1) {
+  transitionAmount = map(seconds, 28.1, 29.1, 1, 0); // Fade out
 }
 //smooth transition from red to orange
 red = lerp(OrangeR, RedR, transitionAmount);
