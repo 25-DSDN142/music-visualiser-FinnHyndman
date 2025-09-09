@@ -21,28 +21,14 @@ let xBass = 190.53
 let yBass = 110
 let xDrum = -190.53
 let yDrum = 110
-let targetX = 0 // center point
-let targetY = 0 // center point
-
-//traveling ball controls
-let xSpeed = 30 //ball x speed
-let xMove = 320 //start location
-let minSpeed = 10
-let maxSpeed = 35
-let travelingY = 240; //Y axis
-let scale = 100
-let glow = 100
+let targetX = 0 // center point when translated
+let targetY = 0 // center point when translated
 
 //flashing sqaure controls 
 let rectRed = 255
 let rectGreen = 255
 let rectBlue = 255
 let rectOpacity = 90
-
-let ellipseRed = 25
-let ellipseGreen = 90
-let ellipseBlue = 255
-let ellipseOpacity = 90
 
 let ReelImages = [];
 let filmIndex = 0;     // frame we're on
@@ -100,7 +86,7 @@ let circleDiameter7
 //roaming circle 8
 let circleX8 = 600
 let circleY8 = 400
-let circleVelocityX8 = 1
+let circleVelocityX8 = 2
 let circleVelocityY8 = 3
 let circleDiameter8
 
@@ -134,8 +120,7 @@ let seconds = (counter/60);
 
 diskSetUp();
 
-let circleFader 
-
+//roaming circle fade timing
 if(seconds>=150){
   cirlceFader = map(seconds,150,155,100,0)
 }
@@ -143,6 +128,7 @@ else if (seconds <150){
   cirlceFader = 100
 }
 
+//roaming circle draw
 if(seconds > 86.9 && seconds < 156){
 roamingCircle4(bass,seconds,cirlceFader)
 roamingCircle5(drum,seconds,cirlceFader)
@@ -156,10 +142,12 @@ roamingCircle3(drum,seconds,cirlceFader)
 
 }
 
+//draw chorus images
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
 Reel()
 }
 
+// draw pulsing circles
 if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83))) {
     
   //circle roate between 45.7 & 75.5
@@ -181,16 +169,11 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83))) {
   if (rotating) {
     angle -= 0.6; // adjust rotate speed
 }}
-  
-  //chrous circle
-if(seconds>75.8 && seconds<79 || (seconds > 83 && seconds < 86.9)){
-    //chorusCirclePulse()
-}
 
-//flashing rectangles
+//chorus flashing rectangles
 if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (seconds > 165.5 && seconds < 177.9)) {
 
-  // only updates randoms every 5 frames
+  // updates random every 10 frames
   if (frameCount % 10 === 0) {
     squareX1 = random(width);
     squareY1 = random(height);
@@ -207,10 +190,11 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (sec
     
     rectangleFlash(squareX2, squareY2, squareW2, squareH2, 2);
 }}
- 
+
+
+//general disk set up
   grainOverlay();
 
-  //roatating disk
   push();
   translate(x, y);
   rotate(diskAngle);
@@ -226,7 +210,7 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (sec
   
   //speed up rotation on chrous.
 let targetSpeed = 0.6; 
-if ((seconds > 74.8  && seconds < 79) || (seconds > 82 && seconds < 86.9)) {
+if ((seconds > 74.8  && seconds < 79) || (seconds > 82 && seconds < 86.9)| (seconds > 165.5 && seconds < 177.9)) {
   targetSpeed = 10;
 }
 diskSpeed = lerp(diskSpeed, targetSpeed, 0.05);
@@ -257,52 +241,117 @@ function diskSetUp(){
 
 function pulsingCircleVocal() {
   let shapeRatio = vocal / 100; 
-  let red, green, blue; 
+  let red, green, blue
 
- if (seconds < 45.7) {
-    // orange to gold
-    red   = lerp(255, 255, shapeRatio);
-    green = lerp(165, 215, shapeRatio);
-    blue  = lerp(0, 0, shapeRatio);
-  } else {
-    // blue to white 
-    red   = lerp(0, 200, shapeRatio);
-    green = lerp(190, 240, shapeRatio);
-    blue  = lerp(255, 255, shapeRatio);
-  }
+  // orange to gold
+  let OrangeR = lerp(255, 255, shapeRatio);
+  let OrangeG = lerp(165, 215, shapeRatio);
+  let OrangeB = lerp(0, 0, shapeRatio);
 
-  let vocalScale = map(vocal, 0, 100, 20, 300);
+  //blue to white
+  let blueR = lerp(0, 200, shapeRatio);
+  let blueG = lerp(190, 240, shapeRatio);
+  let blueB = lerp(255, 255, shapeRatio);
+  //red to red
+let RedR = 145
+let RedG = 10
+let RedB = 0
 
-  // Circle shift to centre
-  if (seconds >= 60.5 && seconds <= 75.5) {
-    let progress = map(seconds, 60.5 , 75.5, 0, 1); 
-    xVocal = lerp(xVocal, targetX, progress);
-    yVocal = lerp(yVocal, targetY, progress);
-  }
+  
 
-  // Draw pulsing circle
-  for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
-    let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
-    fill(red, green, blue, fadeShape);              
-    noStroke();
-    ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
-  }
+let transitionAmount =0
+
+
+//control colour pluse for 'blood'
+if (seconds < 26.5 || seconds > 28.5 && seconds<45.7 ) {
+//orange for most of intro
+red = OrangeR
+green = OrangeG
+blue = OrangeB
+}
+//red pulse
+else if(seconds >=26 && seconds <= 28.5){
+  if (seconds >= 26.5 && seconds <= 27) {
+  transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
+} else if (seconds > 27 && seconds <= 27.5) {
+  transitionAmount = 1; // Full red hold
+} else if (seconds > 27.5 && seconds <= 28) {
+  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
+}
+red = lerp(OrangeR, RedR, transitionAmount);
+green = lerp(OrangeG, RedG, transitionAmount);
+blue = lerp(OrangeB, RedB, transitionAmount);
+}
+//switch to blue
+else if(seconds >= 45.7){
+red = blueR
+green = blueG
+blue = blueB
+}
+
+let vocalScale = map(vocal, 0, 100, 20, 300);
+
+// Circle shift to centre
+if (seconds >= 60.5 && seconds <= 75.5) {
+  let progress = map(seconds, 60.5 , 75.5, 0, 1); 
+  xVocal = lerp(xVocal, targetX, progress);
+  yVocal = lerp(yVocal, targetY, progress);
+}
+
+// Draw pulsing circle
+for (let sizeShape1 = vocalScale; sizeShape1 > 0; sizeShape1 -= 5) {
+  let fadeShape = map(sizeShape1, 0, vocalScale, 0, 80); // fade edges
+  fill(red, green, blue, fadeShape);              
+  noStroke();
+  ellipse(xVocal, yVocal, sizeShape1, sizeShape1);
+}
 }
 
 function pulsingCircleDrum(){
-    let shapeRatio = drum / 100; 
-    let red, green, blue; 
+let shapeRatio = drum / 100; 
+let red, green, blue; 
 
- if (seconds < 45.7) {
-    // orange to gold
-    red   = lerp(240, 230, shapeRatio);
-    green = lerp(20, 100, shapeRatio);
-    blue  = lerp(0, 40, shapeRatio);
-  } else {
-    red = lerp(0, 0, shapeRatio);
-    green = lerp(200, 50, shapeRatio);
-    blue = lerp(255, 150, shapeRatio);
-  }
+let OrangeR   = lerp(240, 230, shapeRatio);
+let OrangeG = lerp(20, 100, shapeRatio);
+let OrangeB  = lerp(0, 40, shapeRatio);
+  
+let blueR = lerp(0, 0, shapeRatio);
+let blueG = lerp(200, 50, shapeRatio);
+let blueB = lerp(255, 150, shapeRatio);
+
+let RedR = 145
+let RedG = 10
+let RedB = 0
+
+let transitionAmount =0
+
+//control colour pluse for 'blood'
+if (seconds < 26.5 || seconds > 28.5 && seconds<45.7 ) {
+//orange for most of intro
+red = OrangeR
+green = OrangeG
+blue = OrangeB
+}
+//red pulse
+else if(seconds >=26 && seconds <= 28.5){
+  if (seconds >= 26.5 && seconds <= 27) {
+  transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
+} else if (seconds > 27 && seconds <= 27.5) {
+  transitionAmount = 1; // Full red hold
+} else if (seconds > 27.5 && seconds <= 28) {
+  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
+}
+red = lerp(OrangeR, RedR, transitionAmount);
+green = lerp(OrangeG, RedG, transitionAmount);
+blue = lerp(OrangeB, RedB, transitionAmount);
+}
+//switch to blue
+else if(seconds >= 45.7){
+red = blueR
+green = blueG
+blue = blueB
+}
+
 
  let drumScale;
   if (seconds > 70.8){
@@ -330,17 +379,48 @@ function pulsingCircleBass(){
     let shapeRatio = bass / 100; 
     let red, green, blue; 
 
-    if (seconds < 45.7) {
-    // orange to gold
-    red   = lerp(240, 255, shapeRatio);
-    green = lerp(80, 140, shapeRatio);
-    blue  = lerp(0, 20, shapeRatio);
-  } else {
-    //blue
-     red = lerp(0, 0, shapeRatio);
-     green = lerp(200, 120, shapeRatio);
-     blue = lerp(255, 220, shapeRatio);
-  }
+  
+OrangeR = lerp(240, 255, shapeRatio);
+OrangeG = lerp(80, 140, shapeRatio);
+OrangeB = lerp(0, 20, shapeRatio);
+  
+let blueR = lerp(0, 0, shapeRatio);
+let blueG = lerp(200, 120, shapeRatio);
+let blueB = lerp(255, 220, shapeRatio);
+
+let RedR = 145
+let RedG = 10
+let RedB = 0
+
+
+let transitionAmount =0
+
+//control colour pluse for 'blood'
+if (seconds < 26.5 || seconds > 28.5 && seconds<45.7 ) {
+//orange for most of intro
+red = OrangeR
+green = OrangeG
+blue = OrangeB
+}
+//red pulse
+else if(seconds >=26 && seconds <= 28.5){
+  if (seconds >= 26.5 && seconds <= 27) {
+  transitionAmount = map(seconds, 26.5, 27, 0, 1); // Fade in
+} else if (seconds > 27 && seconds <= 27.5) {
+  transitionAmount = 1; // Full red hold
+} else if (seconds > 27.5 && seconds <= 28) {
+  transitionAmount = map(seconds, 27.5, 28, 1, 0); // Fade out
+}
+red = lerp(OrangeR, RedR, transitionAmount);
+green = lerp(OrangeG, RedG, transitionAmount);
+blue = lerp(OrangeB, RedB, transitionAmount);
+}
+//switch to blue
+else if(seconds >= 45.7){
+red = blueR
+green = blueG
+blue = blueB
+}
 
 let bassScale;
   if (seconds > 70.8) {
@@ -405,8 +485,7 @@ let orangeG = lerp(10, 40, colorRatio);
 let orangeB = lerp(0, 5, colorRatio);
 
 
-
-  let transitionAmount = 0;
+let transitionAmount = 0;
 
   // //pulse 1
   if (seconds >= 121 && seconds <= 121.4) {
@@ -437,11 +516,11 @@ let orangeB = lerp(0, 5, colorRatio);
 
 //pulse 4
   else if (seconds >= 131.4 && seconds <= 132.0) {
-  transitionAmount = map(seconds, 131.4, 132.0, 0, 1); // Fade in (0.6s)
+  transitionAmount = map(seconds, 131.4, 132.0, 0, 1); // Fade in 
 } else if (seconds > 132.0 && seconds <= 137.2) {
-  transitionAmount = 1; // Full orange hold (4.2s)
+  transitionAmount = 1; // Full orange hold 
 } else if (seconds > 137.2 && seconds <= 137.8) {
-  transitionAmount = map(seconds, 137.2, 137.8, 1, 0); // Fade out (0.6s)
+  transitionAmount = map(seconds, 137.2, 137.8, 1, 0); // Fade out 
 }
 
 //pulse 5
@@ -461,31 +540,41 @@ else if (seconds >= 140.6 && seconds <= 141.0) {
   transitionAmount = map(seconds, 141.5, 142.5, 1, 0); // Fade out
 }
 
-  //final colour lerp. lerp blue pulse to orange pulse.
-  let red = lerp(baseR, orangeR, transitionAmount);
-  let green = lerp(baseG, orangeG, transitionAmount);
-  let blue = lerp(baseB, orangeB, transitionAmount);
+//final colour lerp
+let red = lerp(baseR, orangeR, transitionAmount);
+let green = lerp(baseG, orangeG, transitionAmount);
+let blue = lerp(baseB, orangeB, transitionAmount);
   
-  //lock circle to at 150 seconds
- if (seconds > 150){
-  circleVelocityX1 =0
-  circleVelocityY1 =0
+
+let xMove= map(seconds,150,160,-2,0)
+let YMove= map(seconds,150,160,1,0)
+
+  //lock circle to at 160 seconds 
+ if (seconds > 150 && seconds <= 160){
+  circleVelocityX1 =xMove
+  circleVelocityY1 =YMove
  }
 
-if(seconds > 91.8){
+ //circle move controls
+if(seconds > 91.8 && seconds <= 150){
   circleX1 = circleX1 + circleVelocityX1;
   circleY1 = circleY1 + circleVelocityY1;
 }
 
-  // Bounce off edges
-  if (circleX1 < 160 || circleX1 > 480) {
-    circleVelocityX1 = -circleVelocityX1;
-  }
-  if (circleY1 < 80 || circleY1 > 400) {
-    circleVelocityY1 = -circleVelocityY1;
-  }
+// Circle shift to centre
+if (seconds >= 150 && seconds <= 160) {
+  let progress = map(seconds, 150 , 160, 0, 1); 
+  circleX1 = lerp(circleX1, x, progress);
+  circleY1 = lerp(circleY1, y, progress);
+}
 
-
+// Bounce off edges
+if (circleX1 < 160 || circleX1 > 480) {
+  circleVelocityX1 = -circleVelocityX1;
+}
+if (circleY1 < 80 || circleY1 > 400) {
+  circleVelocityY1 = -circleVelocityY1;
+}
 
   fill(red, green, blue, 100);
   noStroke();   
@@ -497,7 +586,7 @@ for (let i = 0; i <= 20; i += 5) {
 
 function roamingCircle2(bass,seconds,circleFader) {
 
-circleDiameter = map(bass, 0, 100, 50, 80);
+circleDiameter = map(bass, 0, 100, 60, 130);
 colorRatio = map(bass, 0, 100, 0, 1);
 
 //base colour blue
@@ -592,7 +681,7 @@ noStroke();
 
 function roamingCircle3(drum,seconds,circleFader) {
 
-circleDiameter = map(drum, 0, 100, 50, 100);
+circleDiameter = map(drum, 0, 100, 60, 130);
 colorRatio = map(drum, 0, 100, 0, 1);
 
 //base colour blue
@@ -971,9 +1060,9 @@ function roamingCircle7(drum, seconds,circleFader) {
   colorRatio = map(drum, 0, 100, 0, 1);
 
   // Base colour
-let baseR = lerp(20, 40, colorRatio);
-let baseG = lerp(80, 130, colorRatio);
-let baseB = lerp(100, 170, colorRatio);
+let baseR = lerp(0, 40, colorRatio);
+let baseG = lerp(0, 130, colorRatio);
+let baseB = lerp(255, 170, colorRatio);
 
 
  // Fire pulse colour
