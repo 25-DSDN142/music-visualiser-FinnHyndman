@@ -109,6 +109,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   if(firstRun){
     
     myImage = loadImage('diskteaxture.png');
+    myImage1 = loadImage('mask.png');
 
     for (let i = 1; i <= 94; i++){
     ReelImages.push(loadImage('142STATIC/STATIC9'+i+'.png'));
@@ -119,8 +120,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 let seconds = (counter/60);
 
-
-diskSetUp();
+//disk background colour 
+    fill(20);
+    circle(x, y, 440);
 
 //roaming circle fade timing
 if(seconds>=150){
@@ -141,7 +143,6 @@ roamingCircle9(bass,seconds,cirlceFader)
 roamingCircle1(vocal,seconds,cirlceFader)
 roamingCircle2(bass,seconds,cirlceFader)
 roamingCircle3(drum,seconds,cirlceFader)
-
 }
 
 //draw chorus images
@@ -193,7 +194,6 @@ if ((seconds > 75.8 && seconds < 79) || (seconds > 83 && seconds < 86.9) || (sec
     rectangleFlash(squareX2, squareY2, squareW2, squareH2, 2);
 }}
 
-
 //general disk set up
   grainOverlay();
 
@@ -218,6 +218,9 @@ if ((seconds > 74.8  && seconds < 79) || (seconds > 82 && seconds < 86.9)| (seco
 diskSpeed = lerp(diskSpeed, targetSpeed, 0.05);
 diskAngle += diskSpeed;
 
+diskMask();
+
+
 function Reel(){
 //code written by ai
   if (frameCount % filmSpeed === 1){ 
@@ -230,17 +233,11 @@ function Reel(){
   image(ReelImages[filmIndex], 0, 0);
 }
   
-function diskSetUp(){
-    //disk mask
-    drawingContext.save();
-    drawingContext.beginPath();
-    drawingContext.arc(x, y, maskRadius, 0, 360); // use degrees
-    drawingContext.clip();
-
-    //disk colour 
-    fill(20);
-    circle(x, y, 440);
-} 
+function diskMask(){
+    image(myImage1,0,0);
+    fill(0);
+    circle(targetX, targetY, 30); 
+}
 
 function pulsingCircleVocal() {
 let shapeRatio = vocal / 100; 
