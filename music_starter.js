@@ -39,7 +39,7 @@ let filmSpeed = 2;     // how many draw frames before advancings
 //roaming circle 1
 let circleX1 = 320;
 let circleY1 = 240
-let circleVelocityX1 = -2
+let circleVelocityX1 = 2
 let circleVelocityY1 = 1
 let circleDiameter1
 
@@ -133,7 +133,7 @@ else if (seconds <150){
 }
 
 //roaming circle draw
-if(seconds > 86.9 && seconds < 185){
+if(seconds > 86.9 && seconds < 166){
 roamingCircle4(bass,seconds,cirlceFader)
 roamingCircle5(drum,seconds,cirlceFader)
 roamingCircle6(bass,seconds,cirlceFader)
@@ -145,8 +145,12 @@ roamingCircle2(bass,seconds,cirlceFader)
 roamingCircle3(drum,seconds,cirlceFader)
 }
 
+if(seconds > 158.3){
+pulsingCircleChrous2()
+}
+
 // draw pulsing circles
-if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83))) {
+if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83 && seconds <= 166))) {
     
   //circle roate between 45.7 & 75.5
     if (seconds >=45.7 && seconds <= 75.5) { 
@@ -167,24 +171,6 @@ if (!((seconds >= 75.8 && seconds <= 79) || (seconds >= 83))) {
   if (rotating) {
     angle -= 0.6; // adjust rotate speed
 }}
-
-//draw vocal pulsing cirlce
-if ((seconds >= 170)) {
-  push();
-  translate(x, y);
-  pulsingCircleVocal();
-  pop();
-}
-
-//draw drum and bass pulsing cirlces
-if ((seconds>=158)) {
-  push();
-  translate(x, y);
-  pulsingCircleBass();
-  pulsingCircleDrum();
-  pop();
-
-}
 
 //draw chorus images
 if ((seconds > 75.8 && seconds < 79)||(seconds > 83 && seconds < 86.9)|| (seconds > 165.5 && seconds < 172.32)||(seconds > 173.3 && seconds < 177)||(seconds > 184 && seconds < 185) ||(seconds > 187 && seconds < 187.3)||(seconds > 187.5 && seconds < 188)){
@@ -253,6 +239,23 @@ function diskMask(){
     image(myImage1,0,0);
     fill(0);
     circle(targetX, targetY, 30); 
+}
+
+function pulsingCircleChrous2(){
+let shapeRatio = drum / 100; 
+
+let red = lerp(0, 0, shapeRatio);
+let green = lerp(200, 50, shapeRatio);
+let blue = lerp(255, 150, shapeRatio);
+
+chrousDrumScale = map(drum, 0, 100, 20, 275); 
+  
+  for (let sizeShape1 = chrousDrumScale; sizeShape1 > 0; sizeShape1 -= 5) {
+    let fadeShape1 = map(sizeShape1, 0, chrousDrumScale, 0, 80); 
+    fill(red, green, blue, fadeShape1);
+    noStroke();
+    ellipse(320, 240, sizeShape1, sizeShape1);
+  }
 }
 
 function pulsingCircleVocal() {
