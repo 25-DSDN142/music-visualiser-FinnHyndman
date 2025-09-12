@@ -231,7 +231,7 @@ if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seco
 
   //speed up rotation on chrous.
   let targetSpeed = 0.6;
-  if ((seconds > 74.8 && seconds < 79) || (seconds > 82 && seconds < 86.9) || (seconds > 165.5 && seconds < 172.3) || (seconds > 173.3 && seconds < 177)) {
+  if ((seconds > 74.8 && seconds < 79) || (seconds > 82 && seconds < 86.9) || (seconds > 165.5 && seconds < 172.32) || (seconds > 173.3 && seconds < 177)) {
     targetSpeed = 10;
   }
   diskSpeed = lerp(diskSpeed, targetSpeed, 0.05);
