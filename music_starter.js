@@ -152,7 +152,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
 
   //draw flashing rectangles pre chorus 2
-if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seconds < 158.87507) || (seconds > 159.20835 && seconds < 159.375) || (seconds > 159.417 && seconds < 159.583) || (seconds > 159.875 && seconds < 160.042) || (seconds > 160.333 && seconds < 160.5) || (seconds > 160.833 && seconds < 161) || (seconds > 161.250 && seconds < 161.417)) {
+if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seconds < 158.87507) || (seconds > 159.20835 && seconds < 159.375) || (seconds > 159.417 && seconds < 159.583) || (seconds > 159.875 && seconds < 160.042) || (seconds > 160.333 && seconds < 160.5) || (seconds > 160.833 && seconds < 161) || (seconds > 161.250 && seconds < 161.417) || (seconds > 162 && seconds < 162.167) || (seconds > 162.458 && seconds < 162.725)|| (seconds > 162.917 && seconds < 163.083) || (seconds > 163.125 && seconds < 163.292) || (seconds > 163.625 && seconds < 163.792)| (seconds > 164.083 && seconds < 164.25)) {
     // updates random every 4 frames
     //if (frameCount % 4 === 0) {
       squareX3 = random(width);
@@ -231,7 +231,7 @@ if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seco
 
   //speed up rotation on chrous.
   let targetSpeed = 0.6;
-  if ((seconds > 74.8 && seconds < 79) || (seconds > 82 && seconds < 86.9) | (seconds > 165.5 && seconds < 177.9)) {
+  if ((seconds > 74.8 && seconds < 79) || (seconds > 82 && seconds < 86.9) || (seconds > 165.5 && seconds < 172.3) || (seconds > 173.3 && seconds < 177)) {
     targetSpeed = 10;
   }
   diskSpeed = lerp(diskSpeed, targetSpeed, 0.05);
@@ -263,7 +263,7 @@ if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seco
 
     let red = lerp(0, 0, shapeRatio);
     let green = lerp(200, 50, shapeRatio);
-    let blue = lerp(255, 150, shapeRatio);
+    let blue = lerp(255, 180, shapeRatio);
 
     chrousDrumScale = map(drum, 0, 100, 20, 275);
 
