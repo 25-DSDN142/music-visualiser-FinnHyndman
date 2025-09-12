@@ -147,8 +147,20 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     roamingCircle3(drum, seconds, cirlceFader)
   }
 
-  if (seconds > 158.3) {
+  if (seconds > 155.5) {
     pulsingCircleChrous2()
+  }
+
+  //draw flashing rectangles pre chorus 2
+if ((seconds > 158.16668 && seconds < 158.33336) || (seconds > 158.70839 && seconds < 158.87507) || (seconds > 159.20835 && seconds < 159.375) || (seconds > 159.417 && seconds < 159.583) || (seconds > 159.875 && seconds < 160.042) || (seconds > 160.333 && seconds < 160.5) || (seconds > 160.833 && seconds < 161) || (seconds > 161.250 && seconds < 161.417)) {
+    // updates random every 4 frames
+    //if (frameCount % 4 === 0) {
+      squareX3 = random(width);
+      squareY3 = random(height);
+      squareW3 = random(width);
+      squareH3 = random(height);
+      rectangleFlash(squareX3, squareY3, squareW3, squareH3, 2);
+    //}
   }
 
   // draw pulsing circles
@@ -200,6 +212,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
       rectangleFlash(squareX2, squareY2, squareW2, squareH2, 2);
     }
   }
+
+
 
   //general disk set up
   grainOverlay();
