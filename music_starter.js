@@ -1,6 +1,6 @@
 let firstRun = true;
 let myImage;
-let font1
+let font2
 
 //centre points
 let x = 320;
@@ -110,7 +110,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
     myImage = loadImage('diskteaxture.png');
     myImage1 = loadImage('mask.png');
-    font1= loadFont('CanelaDeck-Regular-Trial')
+    font2= loadFont('HelveticaNeueMedium.otf')
 
     for (let i = 1; i <= 94; i++) {
       ReelImages.push(loadImage('142STATIC/STATIC9' + i + '.png'));
@@ -120,7 +120,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   }
 
   let seconds = (counter / 60);
-  textFont(font1);
+  textFont(font2);
 
 
   //disk background colour 
